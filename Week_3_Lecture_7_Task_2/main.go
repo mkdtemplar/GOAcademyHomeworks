@@ -105,7 +105,7 @@ func main() {
 	for i := range d {
 		d[i].deck = Card{face: faces[i%13], suit: suits[i/13]}
 
-		//fmt.Print(d[i].deck)
+		fmt.Print(d[i].deck)
 
 		if i%4 == 0 && i > 0 {
 			fmt.Println()
