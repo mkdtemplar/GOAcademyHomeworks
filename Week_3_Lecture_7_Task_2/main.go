@@ -17,9 +17,7 @@ var faces = [13]string{"Deuce", "Three", "Four", "Five", "Six", "Seven", "Eight"
 	"Queen", "King", "Ace"}
 var suits = [4]string{"Clubs", "Diamonds", "Hearts", "Spades"}
 
-type CompareCards func(*Card, *Card, []DeckOfCards)
-
-func maxCard(deck []DeckOfCards, firstCard *Card, secondCard *Card) {
+func maxCard(deck []DeckOfCards, firstCard Card, secondCard Card) {
 	var faceOfCard1 string
 	var suitOfCard1 string
 	var faceOfCard2 string
@@ -92,14 +90,14 @@ func maxCard(deck []DeckOfCards, firstCard *Card, secondCard *Card) {
 	}
 }
 
-func testCompare(compare CompareCards, firstCard *Card, secondCard *Card, deck []DeckOfCards) {
-	compare(firstCard, secondCard, deck)
+func testCompare(compare func([]DeckOfCards, Card, Card), firstCard Card, secondCard Card, deck []DeckOfCards) {
+	compare(deck, firstCard, secondCard)
 }
 
 func main() {
 
-	var first *Card
-	var second *Card
+	var first Card
+	var second Card
 
 	d := make([]DeckOfCards, 52)
 	fmt.Println("Printing deck of all cards with face and suit")
@@ -131,5 +129,5 @@ func main() {
 	fmt.Println()
 	//compareCards(first, second, d)
 
-	testCompare(maxCard(deckSlice, first, second), first, second, deckSlice)
+	testCompare(maxCard, first, second, deckSlice)
 }
