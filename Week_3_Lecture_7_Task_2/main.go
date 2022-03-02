@@ -44,13 +44,13 @@ func compareCards(firstCard *Card, secondCard *Card, deck *[52]DeckOfCards) {
 	var faceIndex2 *int
 
 	for i := 0; i < len(deck); i++ {
-		if firstCard.face == deck[i].deck.face {
+		if faceOfCard1 == deck[i].deck.face {
 			faceIndex1 = &i
 		}
 	}
 
 	for i := 0; i < len(deck); i++ {
-		if secondCard.face == deck[i].deck.face {
+		if faceOfCard2 == deck[i].deck.face {
 			faceIndex2 = &i
 		}
 	}
@@ -60,13 +60,13 @@ func compareCards(firstCard *Card, secondCard *Card, deck *[52]DeckOfCards) {
 
 	for i := 0; i < len(deck); i++ {
 
-		if firstCard.suit == deck[i].deck.suit {
+		if suitOfCard1 == deck[i].deck.suit {
 			suitIndex1 = &i
 		}
 	}
 
 	for i := 0; i < len(deck); i++ {
-		if secondCard.suit == deck[i].deck.suit {
+		if suitOfCard2 == deck[i].deck.suit {
 
 			suitIndex2 = &i
 		}
