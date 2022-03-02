@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 type Card struct {
 	face  string
@@ -27,9 +30,29 @@ func InitializeDeck(dc *[52]DeckOfCards) {
 
 		}
 	}
+	fmt.Println()
 }
+
+func shuffle(dc *[52]DeckOfCards) {
+
+	for i := range dc {
+
+		second := rand.Intn(52)
+		temp := dc[i]
+		dc[i] = dc[second]
+		dc[second] = temp
+		fmt.Print(dc[i], " ")
+
+		if i%4 == 0 {
+			fmt.Println()
+		}
+	}
+
+}
+
 func main() {
 
 	cardDeck := &[52]DeckOfCards{}
 	InitializeDeck(cardDeck)
+	shuffle(cardDeck)
 }
