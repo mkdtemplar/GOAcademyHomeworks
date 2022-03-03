@@ -49,7 +49,6 @@ func Display(lll *Item) {
 
 func (ll *MagicList) Reverse() {
 
-	var lSlice []int
 	currentNode := ll.LastItem
 	var next *Item
 	var previousNode *Item
@@ -61,17 +60,24 @@ func (ll *MagicList) Reverse() {
 	ll.LastItem = previousNode
 
 	Display(ll.LastItem)
-
-	current := ll.LastItem
-	for current != nil {
-		lSlice = append(lSlice, current.Value)
-		current = current.PrevItem
-	}
-	fmt.Println("Slice from the reversed LinkedList: ", lSlice)
 }
 func ReverseLinkedList(head *MagicList) {
 
 }
+
+func ToSlice(sl *MagicList) []int {
+
+	var slice []int
+	current := sl.LastItem
+
+	for current != nil {
+		slice = append(slice, current.Value)
+		current = current.PrevItem
+	}
+
+	return slice
+}
+
 func Size(s *MagicList) int {
 
 	current := s.LastItem
@@ -146,5 +152,7 @@ func main() {
 	fmt.Println("Reverse Linked List:")
 	l.Reverse()
 	fmt.Println("Length: ", Size(l))
+
+	fmt.Println("Slice: ", ToSlice(l))
 
 }

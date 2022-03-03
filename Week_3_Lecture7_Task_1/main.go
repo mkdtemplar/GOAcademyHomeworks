@@ -21,7 +21,7 @@ var suits = [4]string{"Clubs", "Diamonds", "Hearts", "Spades"}
 
 func InitializeDeck(dc *[52]DeckOfCards) {
 
-	fmt.Println("Printing deck of cards in asccedenting order:")
+	fmt.Println("Printing deck of cards in ascending order:")
 	for i := range dc {
 		dc[i].deck = &Card{face: faces[i%13], suit: suits[i/13]}
 		fmt.Print(dc[i].deck.face, "-", dc[i].deck.suit, ", ")
