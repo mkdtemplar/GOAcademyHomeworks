@@ -117,10 +117,7 @@ func main() {
 		}
 	}
 	fmt.Println()
-	maxCard(deckSlice)
-	fmt.Println()
-
-	fmt.Println()
 	compareCards(d)
-
+	fmt.Println()
+	maxCard(deckSlice)
 }
