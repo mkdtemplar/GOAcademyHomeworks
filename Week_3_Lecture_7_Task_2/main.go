@@ -88,7 +88,6 @@ func compareCards(deck []DeckOfCards) {
 }
 func maxCard(cards []DeckOfCards) {
 
-	fmt.Println("Max card from the slice: ", cards[len(cards)-1])
 }
 func main() {
 
