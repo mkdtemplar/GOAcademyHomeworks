@@ -15,7 +15,9 @@ type DeckOfCards struct {
 
 var faces = [13]string{"Deuce", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack",
 	"Queen", "King", "Ace"}
-var suits = [4]string{"Clubs", "Diamonds", "Hearts", "Spades"}
+var suits = [4]string{"Spades", "Hearts", "Diamonds", "Clubs"}
+
+//var facesSuits = map[string]int{"Deuce": 2, "Three" : 2, "Four" : 4, }
 
 func compareCards(deck []DeckOfCards) {
 
@@ -69,6 +71,8 @@ func compareCards(deck []DeckOfCards) {
 
 	fmt.Println()
 
+	fmt.Println("Indexes: ", faceIndex1, suitIndex1, faceIndex2, suitIndex2)
+
 	if faceIndex1 > faceIndex2 {
 		fmt.Println("Bigger card is: ", deck[faceIndex1].deck.face, " ", deck[suitIndex1].deck.suit)
 
@@ -76,10 +80,10 @@ func compareCards(deck []DeckOfCards) {
 		fmt.Println("Bigger card is: ", deck[faceIndex2].deck.face, " ", deck[suitIndex2].deck.suit)
 
 	} else if faceIndex1 == faceIndex2 && suitIndex1 > suitIndex2 {
-		fmt.Println("Bigger card is: ", deck[faceIndex1].deck.face, " ", deck[suitIndex2].deck.suit)
+		fmt.Println("Bigger card is: ", deck[faceIndex1].deck.face, " ", deck[suitIndex1].deck.suit)
 
 	} else if faceIndex1 == faceIndex2 && suitIndex1 < suitIndex2 {
-		fmt.Println("Bigger card is: ", deck[faceIndex2].deck.face, " ", deck[suitIndex1].deck.suit)
+		fmt.Println("Bigger card is: ", deck[faceIndex2].deck.face, " ", deck[suitIndex2].deck.suit)
 	}
 
 	if faceIndex1 == faceIndex2 && suitIndex1 == suitIndex2 {
@@ -87,6 +91,10 @@ func compareCards(deck []DeckOfCards) {
 	}
 }
 func maxCard(cards []DeckOfCards) {
+
+	maxCard := cards[len(cards)-1]
+
+	fmt.Println("Max card in slice is : ", maxCard)
 
 }
 func main() {
@@ -119,4 +127,5 @@ func main() {
 	compareCards(d)
 	fmt.Println()
 	maxCard(deckSlice)
+
 }
