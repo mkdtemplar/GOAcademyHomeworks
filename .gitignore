@@ -1,0 +1,24 @@
+### Go template
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Folders #
+###########
+Task_1/*
+Task_2/*
+Week_2_Lecture_6_Task_1/*
+Week_3_Lecture_7_Task_2/*
+Week_3_Lecture7_Task_1/*
