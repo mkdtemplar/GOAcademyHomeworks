@@ -28,31 +28,27 @@ func (c Circle) Area() float64 {
 	return math.Pow(c.radius, 2) * math.Pi
 }
 
-func (s Shapes) Area() float64 {
-	s[0] = Square{width: 7, height: 4}.Area()
-	s[1] = Square{width: 8, height: 3}.Area()
-	s[2] = Circle{radius: 5}.Area()
-	s[3] = Circle{radius: 14}.Area()
+func (s Shapes) Area() Shapes {
+	s[0] = Square{width: 7, height: 4}
+	s[1] = Square{width: 8, height: 3}
+	s[2] = Circle{radius: 5}
+	s[3] = Circle{radius: 14}
 
-	return s.Area()
+	return s
 }
 
 func (s Shapes) LargestArea() {
 
-	maxArea := s[0].Area()
-	for i := range s {
-		if maxArea.Area() > s[i].Area() {
-			maxArea = s[i].Area()
-		}
+	for i := range s.Area() {
+		fmt.Println(s.Area()[i])
 	}
-	fmt.Println(maxArea)
 }
 
 func main() {
 
 	var sh Shapes
 	sh = Shapes{}
-	sh.Area()
-	//sh.LargestArea()
+	fmt.Println(sh.Area())
+	sh.LargestArea()
 
 }
