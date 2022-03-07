@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Lecture_9_Task_1/CardDraw"
-	"Lecture_9_Task_1/CardGame"
+	cardDraw "Lecture_9_Task_1/CardDraw"
+	cardGame "Lecture_9_Task_1/CardGame"
 	"fmt"
 )
 
