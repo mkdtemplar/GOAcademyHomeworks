@@ -54,15 +54,14 @@ func shuffle(dc *[52]DeckOfCards) {
 
 }
 
-func deal(dealCard *[52]DeckOfCards) error {
+func deal(dealCard *[52]DeckOfCards) {
 
 	if dealCard == nil {
-		return fmt.Errorf("list is empty")
+		fmt.Errorf("list is empty")
 	}
 
 	dealCard[0].deck = dealCard[0].deck.cards
 
-	return nil
 }
 
 func main() {
