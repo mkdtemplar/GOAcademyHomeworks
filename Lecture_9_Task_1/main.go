@@ -24,4 +24,6 @@ func main() {
 	fmt.Println()
 	fmt.Println()
 
+	fmt.Println(dc2.Done())
+
 }

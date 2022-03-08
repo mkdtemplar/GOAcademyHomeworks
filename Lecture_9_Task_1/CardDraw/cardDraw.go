@@ -8,7 +8,8 @@ import (
 )
 
 type Dealer interface {
-	Deal() [52]cardGame.DeckOfCards
+	Deal() []cardGame.DeckOfCards
+	Done() bool
 }
 
 func Shuffle(dc []cardGame.DeckOfCards) {
@@ -29,9 +30,34 @@ func Shuffle(dc []cardGame.DeckOfCards) {
 	}
 }
 
-type Cards [52]cardGame.DeckOfCards
+type Cards []cardGame.DeckOfCards
 
-func (card Cards) Deal() [52]cardGame.DeckOfCards {
+func (crd Cards) Done() bool {
+
+	if len(crd.Deal()) == 0 {
+		return true
+	} else {
+		return false
+	}
+
+}
+
+func (c Cards) DealOneCard() error {
+	c = make([]cardGame.DeckOfCards, 52)
+	i := 0
+	if len(c.Deal()) == 0 {
+		errors.New("deck is empty")
+	} else {
+		for len(c.Deal()) != 0 {
+			c = append(c.Deal()[:0], c.Deal()[1:]...)
+			fmt.Println(c.Deal()[i])
+		}
+	}
+	return nil
+}
+
+func (card Cards) Deal() []cardGame.DeckOfCards {
+	card = make([]cardGame.DeckOfCards, 52)
 	for i := range card {
 
 		card[i].Deck = cardGame.Card{Face: cardGame.Faces[i%13], Suit: cardGame.Suits[i/13]}
