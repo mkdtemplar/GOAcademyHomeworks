@@ -10,7 +10,7 @@ func main() {
 
 	dc := make([]cardGame.DeckOfCards, 52)
 	var dc2 cardDraw.Dealer
-	dc2 = &cardDraw.Cards{}
+	dc2 = cardDraw.Cards{}
 
 	cardGame.InitializeDeck(dc)
 	fmt.Println()
@@ -22,8 +22,7 @@ func main() {
 
 	cardDraw.DrawAllCards(dc2)
 	fmt.Println()
-	fmt.Println()
-
+	//cardDraw.DealOneCard(dc)
 	fmt.Println(dc2.Done())
 
 }

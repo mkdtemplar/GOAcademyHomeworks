@@ -42,20 +42,6 @@ func (crd Cards) Done() bool {
 
 }
 
-func (c Cards) DealOneCard() error {
-	c = make([]cardGame.DeckOfCards, 52)
-	i := 0
-	if len(c.Deal()) == 0 {
-		errors.New("deck is empty")
-	} else {
-		for len(c.Deal()) != 0 {
-			c = append(c.Deal()[:0], c.Deal()[1:]...)
-			fmt.Println(c.Deal()[i])
-		}
-	}
-	return nil
-}
-
 func (card Cards) Deal() []cardGame.DeckOfCards {
 	card = make([]cardGame.DeckOfCards, 52)
 	for i := range card {
@@ -64,6 +50,23 @@ func (card Cards) Deal() []cardGame.DeckOfCards {
 
 	}
 	return card
+}
+
+func DealOneCard(crd Cards) (error, Cards) {
+	crd = make([]cardGame.DeckOfCards, 52)
+
+	if len(crd) == 0 {
+
+		return errors.New("deck is empty"), crd
+	} else {
+		i := 0
+
+		for len(crd) != 0 {
+			fmt.Println(crd[i])
+			crd = append(crd[0:], crd[:1]...)
+		}
+	}
+	return nil, crd
 }
 
 func DrawAllCards(dealer Dealer) error {
