@@ -14,7 +14,7 @@ func main() {
 	cardDraw.DrawAllCards(dc2)
 	fmt.Println()
 
-	//fmt.Println(cardDraw.DealOneCard(&dc)
+	fmt.Println(cardDraw.DealOneCard(dc2))
 
 	fmt.Println(dc2.Done())
 

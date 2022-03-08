@@ -33,17 +33,17 @@ func (card Cards) Deal() *[52]cardGame.DeckOfCards {
 	return (*[52]cardGame.DeckOfCards)(&card)
 }
 
-func DealOneCard(c *[52]cardGame.DeckOfCards) error {
+func DealOneCard(c Dealer) error {
 
-	sl := c[0:len(c)]
+	sl := c.Deal()[0:len(c.Deal())]
 
 	if len(sl) == 0 {
 
 		return errors.New("empty")
 	} else {
-		for len(c) != 0 {
-			fmt.Println(c[0])
-			sl = append(c[:0], c[1:]...)
+		for len(sl) != 0 {
+			fmt.Print(sl[0].Deck.Face, "-", sl[0].Deck.Suit, " ")
+			sl = append(sl[:0], sl[1:]...)
 		}
 	}
 	return nil
