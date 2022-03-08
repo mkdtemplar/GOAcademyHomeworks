@@ -8,7 +8,7 @@ import (
 )
 
 type Dealer interface {
-	Deal() []cardGame.DeckOfCards
+	Deal() *[52]cardGame.DeckOfCards
 	Done() bool
 }
 
@@ -30,7 +30,7 @@ func Shuffle(dc []cardGame.DeckOfCards) {
 	}
 }
 
-type Cards []cardGame.DeckOfCards
+type Cards [52]cardGame.DeckOfCards
 
 func (crd Cards) Done() bool {
 
@@ -42,21 +42,19 @@ func (crd Cards) Done() bool {
 
 }
 
-func (card Cards) Deal() []cardGame.DeckOfCards {
-
-	card = make([]cardGame.DeckOfCards, 52)
+func (card Cards) Deal() *[52]cardGame.DeckOfCards {
 
 	for i := range card {
 
-		card[i].Deck = cardGame.Card{Face: cardGame.Faces[i%13], Suit: cardGame.Suits[i/13]}
+		card[i].Deck = &cardGame.Card{Face: cardGame.Faces[i%13], Suit: cardGame.Suits[i/13]}
 
 	}
-	return card
+	return (*[52]cardGame.DeckOfCards)(&card)
 }
 
+/*
 func DealOneCard(c Cards) error {
 
-	c = make([]cardGame.DeckOfCards, 52)
 	if len(c) == 0 {
 
 		return errors.New("empty")
@@ -68,13 +66,13 @@ func DealOneCard(c Cards) error {
 	}
 	return nil
 }
-
+*/
 func DrawAllCards(dealer Dealer) error {
 	if len(dealer.Deal()) == 0 {
 		return errors.New("card deck is empty")
 	}
 	for i := range dealer.Deal() {
-		fmt.Print(dealer.Deal()[i])
+		fmt.Print(dealer.Deal()[i].Deck.Face, "-", dealer.Deal()[i].Deck.Suit, " ")
 		if i%4 == 0 {
 			fmt.Println()
 		}
