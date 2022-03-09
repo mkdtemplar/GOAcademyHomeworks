@@ -42,8 +42,8 @@ func DealOneCard(c Dealer) error {
 		return errors.New("empty")
 	} else {
 		for len(sl) != 0 {
-			fmt.Print(sl[0].Deck.Face, "-", sl[0].Deck.Suit, " ")
-			sl = append(sl[:i], sl[i+1:]...)
+			fmt.Println(sl[0].Deck.Face, "-", sl[0].Deck.Suit, " ")
+			sl = append(sl[:0], sl[1:]...)
 		}
 	}
 	return nil
