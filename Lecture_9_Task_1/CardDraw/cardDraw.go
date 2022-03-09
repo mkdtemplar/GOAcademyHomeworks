@@ -37,6 +37,8 @@ func DealOneCard(c Dealer) error {
 
 	sl := c.Deal()[0:len(c.Deal())]
 
+	fmt.Println(len(c.Deal()))
+
 	if len(sl) == 0 {
 
 		return errors.New("empty")
@@ -46,6 +48,7 @@ func DealOneCard(c Dealer) error {
 			sl = append(sl[:0], sl[1:]...)
 		}
 	}
+	fmt.Println(len(c.Deal()))
 	return nil
 }
 
