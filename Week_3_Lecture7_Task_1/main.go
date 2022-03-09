@@ -65,6 +65,15 @@ func deal(dealCard *[52]DeckOfCards) error {
 	return nil
 }
 
+func  DealOneCard(card *[52]DeckOfCards)  {
+
+	crd := card[0:]
+	for len(crd) != 0{
+		fmt.Println(crd[0].deck.face, "-", crd[0].deck.suit, " ")
+			crd = append(crd[:0], crd[1:]...)
+	}
+}
+
 func main() {
 
 	cardDeck := &[52]DeckOfCards{}
@@ -72,5 +81,7 @@ func main() {
 	fmt.Println()
 	shuffle(cardDeck)
 
-	deal(cardDeck)
+	fmt.Println()
+	DealOneCard(cardDeck)
+	//deal(cardDeck)
 }
