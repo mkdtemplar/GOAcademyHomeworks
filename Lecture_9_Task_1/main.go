@@ -8,8 +8,8 @@ import (
 func main() {
 
 	//dc := make([]cardGame.DeckOfCards, 52)
-	var dc2 cardDraw.Dealer
-	dc2 = &cardDraw.Cards{}
+	var dc2 cardDraw.Dealer = &cardDraw.Cards{}
+
 
 	cardDraw.DrawAllCards(dc2)
 	fmt.Println()
