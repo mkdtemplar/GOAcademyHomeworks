@@ -13,7 +13,7 @@ type Dealer interface {
 
 type Cards [52]cardGame.DeckOfCards
 
-func (crd Cards) Done() bool {
+func (crd Dealer) Done() bool {
 
 	if len(crd.Deal()) == 0 {
 		return true
