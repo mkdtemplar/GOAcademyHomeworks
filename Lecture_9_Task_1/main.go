@@ -1,21 +1,28 @@
 package main
 
 import (
-	cardDraw "Lecture_9_Task_1/CardDraw"
+	cardDraw "Lecture9/CardDraw"
+	"Lecture9/CardGame"
 	"fmt"
 )
 
 func main() {
 
-	//dc := make([]cardGame.DeckOfCards, 52)
-	var dc2 cardDraw.Dealer = &cardDraw.Cards{}
+	dc := &cardGame.DeckOfCards{}
 
+	for i := range dc {
+		dc[i].Deck = &cardGame.Card{Face: cardGame.Faces[i%13], Suit: cardGame.Suits[i/13]}
+	}
+
+	var dc2 cardDraw.Dealer = dc
+
+	//deck1 := cardGame.InitializeDeck(dc)
 
 	cardDraw.DrawAllCards(dc2)
 	fmt.Println()
 
 	fmt.Println(cardDraw.DealOneCard(dc2))
 
-	fmt.Println(dc2.Done())
+	fmt.Println()
 
 }
