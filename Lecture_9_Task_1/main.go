@@ -16,8 +16,6 @@ func main() {
 
 	var dc2 cardDraw.Dealer = dc
 
-	//deck1 := cardGame.InitializeDeck(dc)
-
 	cardDraw.DrawAllCards(dc2)
 	fmt.Println()
 
