@@ -1,10 +1,6 @@
 package cardDraw
 
-import (
-	//"errors"
-	//"fmt"
-	cardGame "Lecture_9_Task_1/CardGame"
-)
+import cardGame "Lecture_9_Task_1/CardGame"
 
 type Dealer interface {
 	Deal() *cardGame.DeckOfCards
@@ -12,13 +8,11 @@ type Dealer interface {
 	Done() bool
 }
 
-func DealOneCard(c Dealer) error {
+func DealOneCard(c Dealer) {
 
 	c.DealOneCard()
-	return nil
 }
 
-func DrawAllCards(dealer Dealer) error {
+func DrawAllCards(dealer Dealer) {
 	dealer.Deal()
-	return nil
 }
