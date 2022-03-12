@@ -3,7 +3,7 @@ package cardDraw
 import (
 	//"errors"
 	//"fmt"
-	cardGame "Lecture9/CardGame"
+	cardGame "Lecture_9_Task_1/CardGame"
 )
 
 type Dealer interface {
