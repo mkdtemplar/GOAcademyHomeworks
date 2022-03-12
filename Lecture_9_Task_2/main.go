@@ -33,7 +33,7 @@ func main() {
 	var ar Action
 
 	ar = func() error {
-		var aa int
+		var aa float64
 		scan, err := fmt.Scan(&aa)
 		if err != nil {
 			fmt.Println(math.Sqrt(float64(scan)))
