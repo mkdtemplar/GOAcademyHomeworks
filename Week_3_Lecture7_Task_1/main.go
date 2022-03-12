@@ -54,24 +54,16 @@ func shuffle(dc *[52]DeckOfCards) {
 
 }
 
-func deal(dealCard *[52]DeckOfCards) error {
-
-	if dealCard == nil {
-		return fmt.Errorf("list is empty")
-	}
-
-	dealCard[0].deck = dealCard[0].deck.cards
-
-	return nil
-}
-
-func  DealOneCard(card *[52]DeckOfCards)  {
+func DealOneCard(card *[52]DeckOfCards) {
 
 	crd := card[0:]
-	for len(crd) != 0{
+	fmt.Println(len(crd))
+	for len(crd) != 0 {
 		fmt.Println(crd[0].deck.face, "-", crd[0].deck.suit, " ")
-			crd = append(crd[:0], crd[1:]...)
+		crd = append(crd[:0], crd[1:]...)
 	}
+
+	fmt.Println(len(crd))
 }
 
 func main() {
@@ -83,5 +75,4 @@ func main() {
 
 	fmt.Println()
 	DealOneCard(cardDeck)
-	//deal(cardDeck)
 }
