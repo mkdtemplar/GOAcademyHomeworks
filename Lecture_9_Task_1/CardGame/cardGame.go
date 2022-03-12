@@ -32,7 +32,6 @@ func (d DeckOfCards) Deal() *DeckOfCards {
 	}
 
 	return &d
-	panic("implement me")
 }
 
 func (d DeckOfCards) DealOneCard() *DeckOfCards {
@@ -50,7 +49,6 @@ func (d DeckOfCards) DealOneCard() *DeckOfCards {
 	}
 
 	return nil
-	panic("implement me")
 }
 
 func (d DeckOfCards) Done() bool {
@@ -59,5 +57,4 @@ func (d DeckOfCards) Done() bool {
 	} else {
 		return false
 	}
-	panic("implement me")
 }
