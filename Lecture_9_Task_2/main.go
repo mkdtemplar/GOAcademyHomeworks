@@ -1,47 +1,45 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"math"
 )
 
 type Action func() error
 
-func SafeExec(a Action) Action {
-	return func() error {
-		defer func() {
-			if a := recover(); a != nil {
-				fmt.Errorf("recovered in function: %s", a)
+func (a Action) Error() string {
+	var aa float64
+	scan, err := fmt.Scan(&aa)
+	if err != nil {
+		fmt.Println(math.Sqrt(float64(scan)))
+		return "Error"
+	} else {
 
-			}
-		}()
-
-		panic("BOOM")
+		return "OK"
 	}
-
+	panic("implement me")
 }
 
-func Function() error {
+func (a Action) Divide() float64 {
 
-	return errors.New("error")
+	return 1 / 0
+}
 
+func SafeExec(a Action) Action {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Errorf("recovered in function: %s", r)
+
+		}
+	}()
+
+	a.Divide()
+	panic("BOOM")
 }
 
 func main() {
 
 	var ar Action
+	fmt.Println(SafeExec(ar).Divide())
 
-	ar = func() error {
-		var aa float64
-		scan, err := fmt.Scan(&aa)
-		if err != nil {
-			fmt.Println(math.Sqrt(float64(scan)))
-			return err
-		} else {
-
-			return nil
-		}
-	}
-	SafeExec(ar)
 }
