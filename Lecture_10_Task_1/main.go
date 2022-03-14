@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
 type ConcurrentPrinter struct {
@@ -13,18 +14,20 @@ type ConcurrentPrinter struct {
 func (cp *ConcurrentPrinter) PrintFoo(times int) {
 
 	for i := 0; i < times; i++ {
-
 		fmt.Print("foo")
+		cp.Lock()
+		time.Sleep(10 * time.Millisecond)
+		cp.Unlock()
 	}
-
 }
 
 func (cp *ConcurrentPrinter) PrintBar(times int) {
 
 	for i := 0; i < times; i++ {
-
 		fmt.Print("bar")
-
+		cp.Lock()
+		time.Sleep(10 * time.Millisecond)
+		cp.Unlock()
 	}
 
 }
@@ -37,18 +40,13 @@ func main() {
 	cp.Add(2)
 
 	go func() {
-		cp.PrintFoo(times)
-		//cp.Lock()
+		cp.PrintBar(times)
 		cp.Done()
-		//cp.Unlock()
 	}()
 
 	go func() {
-		//cp.Lock()
-		cp.PrintBar(times)
-
+		cp.PrintFoo(times)
 		cp.Done()
-		//cp.Unlock()
 	}()
 
 	cp.Wait()
