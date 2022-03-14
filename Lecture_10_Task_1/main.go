@@ -40,12 +40,12 @@ func main() {
 	cp.Add(2)
 
 	go func() {
-		cp.PrintBar(times)
+		cp.PrintFoo(times)
 		cp.Done()
 	}()
 
 	go func() {
-		cp.PrintFoo(times)
+		cp.PrintBar(times)
 		cp.Done()
 	}()
 
