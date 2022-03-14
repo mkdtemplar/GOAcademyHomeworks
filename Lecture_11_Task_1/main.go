@@ -2,54 +2,56 @@ package main
 
 import (
 	"fmt"
-	"sync"
 )
 
-type Concurency struct {
-	sync.WaitGroup
-	sync.Mutex
-}
+func processEven(inputs []int) chan []int {
 
-func processEven(inputs []int) chan int {
-
-	even := make(chan int)
-	for i := range inputs {
-		if inputs[i]%2 == 0 {
-			return even
+	even := make(chan []int)
+	evenSlice := make([]int, 0)
+	go func(e chan []int) {
+		defer close(e)
+		for i := range inputs {
+			if inputs[i]%2 == 0 {
+				evenSlice = append(evenSlice, inputs[i])
+			}
 		}
-	}
+		even <- evenSlice
+	}(even)
 
-	return nil
+	return even
 
 }
-func processOdd(inputs []int) chan int {
+func processOdd(inputs []int) chan []int {
 
-	odd := make(chan int)
-	for i := range inputs {
-		if inputs[i]%2 != 0 {
-			return odd
+	odd := make(chan []int)
+	oddSlice := make([]int, 0)
+	go func(odd chan []int) {
+		o := odd
+		defer close(o)
+		for i := range inputs {
+			if inputs[i]%2 != 0 {
+				oddSlice = append(oddSlice, inputs[i])
+
+			}
 		}
-	}
-	return nil
+		o <- oddSlice
+	}(odd)
+	return odd
 }
 
 func main() {
 
 	inputs := []int{1, 17, 34, 56, 2, 8}
-	cp := &Concurency{}
 
-	cp.Add(2)
+	evenCh := processEven(inputs)
+	oddCh := processOdd(inputs)
 
-	go func() {
-		fmt.Println(processEven(inputs))
-		cp.Done()
-	}()
+	for i := range oddCh {
+		fmt.Println(i)
 
-	go func() {
-		fmt.Println(processOdd(inputs))
-		cp.Done()
-	}()
+	}
 
-	cp.Wait()
-
+	for j := range evenCh {
+		fmt.Println(j)
+	}
 }
