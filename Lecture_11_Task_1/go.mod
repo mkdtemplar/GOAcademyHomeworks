@@ -1,3 +1,3 @@
-module Lecture_11_Task_1
+module main
 
-go 1.17
+go 1.18
