@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 	"sync"
 	"time"
+	"log"
 )
 
 func generateThrottled(data string, bufferLimit int, clearInterval time.Duration) <-chan string {
@@ -29,6 +29,6 @@ func main() {
 	c := generateThrottled("Data string", 2, clearInterval)
 
 	for i := range c{
-		fmt.Println(i)
+		log.Println(i)
 	}
 }
