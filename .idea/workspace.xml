@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a860f673-1f20-4b1a-b5f7-97865fd73eec" name="Changes" comment="For review">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/GOAcademyHomeworks.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecture_12_Task_1/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecture_12_Task_1/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecture_13_Task_1/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/Lecture_13_Task_1/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecture_9_Task_2/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-    </list>
+    <list default="true" id="a860f673-1f20-4b1a-b5f7-97865fd73eec" name="Changes" comment="For review" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,6 +38,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="26HsOX4c9zXfcwN7hs0V7Ph5HLX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -66,16 +56,30 @@
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.watchers.conflict.with.on.save.actions.check.performed" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Lecture_12_Task_1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Lecture_13_Task_1" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build main" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="GOAcademyHomeworks" />
       <working_directory value="$PROJECT_DIR$/Lecture_13_Task_1" />
       <kind value="DIRECTORY" />
       <directory value="$PROJECT_DIR$/Lecture_13_Task_1" />
-      <filePath value="$PROJECT_DIR$/Lecture_12_Task_1/main" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
       <method v="2" />
     </configuration>
   </component>
