@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a860f673-1f20-4b1a-b5f7-97865fd73eec" name="Changes" comment="For review">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecture_12_Task_1/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/Lecture_12_Task_1/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecture_13_Task_1/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecture_13_Task_1/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GOAcademyHomeworks.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecture_12_Task_1/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecture_12_Task_1/main.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Lecture_9_Task_2/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Lecture-11-Task-1" />
+        <entry key="$PROJECT_DIR$" value="Lecture_12_Task_1" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -65,9 +74,9 @@
   <component name="RunManager">
     <configuration name="go build main" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="GOAcademyHomeworks" />
-      <working_directory value="$PROJECT_DIR$/Lecture_12_Task_1" />
+      <working_directory value="$PROJECT_DIR$/Lecture_13_Task_1" />
       <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$/Lecture_12_Task_1" />
+      <directory value="$PROJECT_DIR$/Lecture_13_Task_1" />
       <filePath value="$PROJECT_DIR$/Lecture_12_Task_1/main" />
       <method v="2" />
     </configuration>
