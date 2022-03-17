@@ -1,10 +1,10 @@
 package main
 
 import (
+	"log"
 	"math/rand"
 	"sync"
 	"time"
-	"log"
 )
 
 func generateThrottled(data string, bufferLimit int, clearInterval time.Duration) <-chan string {
