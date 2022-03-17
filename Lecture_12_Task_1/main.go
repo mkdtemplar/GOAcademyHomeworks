@@ -20,8 +20,8 @@ func generateThrottled(data string, bufferLimit int, clearInterval time.Duration
 	for i := 0; i < bufferLimit; i++ {
 		go func() {
 			channel <- data
-			wg.Done()
 			time.Sleep(clearInterval * time.Millisecond)
+			wg.Done()
 			close(channel)
 		}()
 	}
