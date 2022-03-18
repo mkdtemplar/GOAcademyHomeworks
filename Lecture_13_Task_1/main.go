@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -10,9 +11,39 @@ type BufferedContext struct {
 	context.Context
 	/* Add other fields you might need */
 }
+
 func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	/*Implement the rest */
+	chanel := make(chan string)
+	var wg sync.WaitGroup
+
+	wg.Add(bufferSize)
+
+	{
+		go func() {
+			for i := 0; i < bufferSize; i++ {
+
+			}
+			chanel <- "foo"
+			wg.Done()
+			close(chanel)
+		}()
+	}
+
+	go func() {
+		done := ctx.Done()
+		defer cancel()
+		for {
+			select {
+			case chanel <- "foo with timeout":
+				return
+			case <-done:
+				return
+			}
+		}
+	}()
+
+	return ctx
 }
 func (bc *BufferedContext) Done() <-chan struct{} {
 	/* This function will serve in place of the oriignal context */
