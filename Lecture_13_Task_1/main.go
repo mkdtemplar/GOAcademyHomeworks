@@ -18,16 +18,12 @@ func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext 
 	var wg sync.WaitGroup
 
 	wg.Add(bufferSize)
-
-	{
+	for i := 0; i < bufferSize; i++ {
 		go func() {
-			for i := 0; i < bufferSize; i++ {
-
-			}
-			chanel <- "foo"
+			chanel <- "bar"
 			wg.Done()
-			close(chanel)
 		}()
+		ctx.Done()
 	}
 
 	go func() {
@@ -35,15 +31,16 @@ func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext 
 		defer cancel()
 		for {
 			select {
-			case chanel <- "foo with timeout":
-				return
 			case <-done:
 				return
+			case ch := <-chanel:
+				fmt.Println(ch)
 			}
+			return
 		}
 	}()
 
-	return ctx
+	return nil
 }
 func (bc *BufferedContext) Done() <-chan struct{} {
 	/* This function will serve in place of the oriignal context */
@@ -51,10 +48,16 @@ func (bc *BufferedContext) Done() <-chan struct{} {
 	   a) the emebdded context times out
 	   b) the buffer gets filled
 	*/
+
+	return bc.Context.Done()
 }
 func (bc *BufferedContext) Run(fn func(context.Context, chan string)) {
 	/* This function serves for executing the test */
 	/* Implement the rest */
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*200)
+	defer cancel()
+	chanel := make(chan string)
+	fn(ctx, chanel)
 }
 
 func main() {
@@ -66,7 +69,7 @@ func main() {
 			case <-ctx.Done():
 				return
 			case buffer <- "bar":
-				time.Sleep(time.Millisecond * 200) // try different values here
+				time.Sleep(time.Millisecond * 200)
 				fmt.Println("bar")
 			}
 		}
