@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 )
@@ -21,7 +20,8 @@ func fetch(url string, ch chan<- string) {
 		return
 	}
 	defer resp.Body.Close()
-	log.Printf("Got response for %s: %d\n", url, resp.StatusCode)
+
+	ch <- fmt.Sprintf("Got response for %s: %d\n", url, resp.StatusCode)
 }
 
 func main() {
