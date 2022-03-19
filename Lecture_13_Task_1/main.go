@@ -23,7 +23,7 @@ func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext 
 			chanel <- "bar"
 			wg.Done()
 		}()
-		ctx.Done()
+		//ctx.Done()
 	}
 
 	go func() {
