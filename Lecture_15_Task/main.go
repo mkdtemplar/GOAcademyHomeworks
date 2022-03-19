@@ -19,8 +19,8 @@ func sortDates(format string, dates ...string) []string {
 	date := []time.Time{d1, d2, d3}
 
 	for df := range date {
-		date[df].Format(format)
-		fmt.Println(date[df])
+
+		fmt.Println(date[df].Format(format))
 	}
 
 	sort.Slice(date, func(i, j int) bool {
