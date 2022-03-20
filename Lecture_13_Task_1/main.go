@@ -23,15 +23,17 @@ func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext 
 	for i := 0; i < bufferSize; i++ {
 		go func() {
 			cancel()
-
+			done := bc.Done()
+			defer cancel()
+			select {
+			case <-done:
+				return
+			case ch := <-chanel:
+				fmt.Println(ch)
+				return
+			}
 		}()
-		done := bc.Done()
-		defer cancel()
-		select {
-		case <-done:
-		case ch := <-chanel:
-			fmt.Println(ch)
-		}
+
 		wg.Done()
 	}
 
@@ -43,6 +45,10 @@ func (bc *BufferedContext) Done() <-chan struct{} {
 	   a) the emebdded context times out
 	   b) the buffer gets filled
 	*/
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*200)
+	defer cancel()
+
+	bc = &BufferedContext{ctx}
 
 	return bc.Context.Done()
 }
