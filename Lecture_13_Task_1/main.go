@@ -14,17 +14,15 @@ type BufferedContext struct {
 
 func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	chanel := make(chan string)
+	chanel := make(chan string, bufferSize)
 	var wg sync.WaitGroup
 
 	wg.Add(bufferSize)
-	for i := 0; i < bufferSize; i++ {
-		go func() {
-			chanel <- "bar"
-			wg.Done()
-		}()
-		//ctx.Done()
-	}
+	go func() {
+		chanel <- "bar"
+		wg.Done()
+	}()
+	//ctx.Done()
 
 	go func() {
 		done := ctx.Done()
