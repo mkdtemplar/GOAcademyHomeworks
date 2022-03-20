@@ -22,19 +22,16 @@ func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext 
 	wg.Add(bufferSize)
 	for i := 0; i < bufferSize; i++ {
 		go func() {
-			done := bc.Done()
-			defer cancel()
-			for {
-				select {
-				case <-done:
-					return
-				case ch := <-chanel:
-					fmt.Println(ch)
-				}
-				return
-			}
-			close(chanel)
+			cancel()
+
 		}()
+		done := bc.Done()
+		defer cancel()
+		select {
+		case <-done:
+		case ch := <-chanel:
+			fmt.Println(ch)
+		}
 		wg.Done()
 	}
 
