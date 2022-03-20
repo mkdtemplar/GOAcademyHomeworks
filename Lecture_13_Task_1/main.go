@@ -17,28 +17,28 @@ func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext 
 	chanel := make(chan string, bufferSize)
 	var wg sync.WaitGroup
 
+	bc := BufferedContext{ctx}
+
 	wg.Add(bufferSize)
-	go func() {
-		chanel <- "bar"
-		wg.Done()
-	}()
-	//ctx.Done()
-
-	go func() {
-		done := ctx.Done()
-		defer cancel()
-		for {
-			select {
-			case <-done:
+	for i := 0; i < bufferSize; i++ {
+		go func() {
+			done := bc.Done()
+			defer cancel()
+			for {
+				select {
+				case <-done:
+					return
+				case ch := <-chanel:
+					fmt.Println(ch)
+				}
 				return
-			case ch := <-chanel:
-				fmt.Println(ch)
 			}
-			return
-		}
-	}()
+			close(chanel)
+		}()
+		wg.Done()
+	}
 
-	return nil
+	return &bc
 }
 func (bc *BufferedContext) Done() <-chan struct{} {
 	/* This function will serve in place of the oriignal context */
@@ -55,6 +55,7 @@ func (bc *BufferedContext) Run(fn func(context.Context, chan string)) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*200)
 	defer cancel()
 	chanel := make(chan string)
+
 	fn(ctx, chanel)
 }
 
@@ -73,3 +74,50 @@ func main() {
 		}
 	})
 }
+
+/*
+unc NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext {
+
+    ctx, cancel := context.WithTimeout(context.Background(), timeout)
+
+
+
+    defer cancel()
+
+    bc := &BufferedContext{ctx, 10, timeout}
+
+
+
+    return bc
+
+
+
+}
+
+func (bc *BufferedContext) Done() <-chan struct{} {
+
+
+
+    ctx, cancel := context.WithTimeout(bc, bc.timeout)
+
+    defer cancel()
+
+    return ctx.Done()
+
+}
+
+func (bc *BufferedContext) Run(fn func(context.Context, chan string)) {
+
+    ch := make(chan string, bc.buffer)
+
+    for len(ch) == cap(ch) {
+
+        ch <- "bar"
+
+        time.Sleep(time.Millisecond * 200)
+
+    }
+
+    fn(bc.Context, ch)
+}
+*/
