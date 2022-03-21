@@ -20,22 +20,18 @@ func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext 
 	bc := BufferedContext{ctx}
 
 	wg.Add(bufferSize)
-	for i := 0; i < bufferSize; i++ {
-		go func() {
-			cancel()
-			done := bc.Done()
-			defer cancel()
+	go func() {
+		defer wg.Done()
+		defer cancel()
+		for {
 			select {
-			case <-done:
+			case <-bc.Done():
 				return
 			case ch := <-chanel:
 				fmt.Println(ch)
-				return
 			}
-		}()
-
-		wg.Done()
-	}
+		}
+	}()
 
 	return &bc
 }
@@ -50,7 +46,7 @@ func (bc *BufferedContext) Done() <-chan struct{} {
 
 	bc = &BufferedContext{ctx}
 
-	return bc.Done()
+	return ctx.Done()
 }
 func (bc *BufferedContext) Run(fn func(context.Context, chan string)) {
 	/* This function serves for executing the test */
@@ -58,6 +54,7 @@ func (bc *BufferedContext) Run(fn func(context.Context, chan string)) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	defer cancel()
 	chanel := make(chan string)
+	bc = &BufferedContext{ctx}
 
 	for i := 0; i < len(chanel); i++ {
 		chanel <- "bar"
