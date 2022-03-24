@@ -37,12 +37,11 @@ func NewBufferedContext(timeout time.Duration, bufferSize int) *BufferedContext 
 	return &bc
 }
 
-/*
 func (bc *BufferedContext) Done() <-chan struct{} {
 	/* This function will serve in place of the oriignal context */
-/* make it so that the result channel gets closed in one of the to cases;
-	   a) the emebdded context times out
-	   b) the buffer gets filled
+	//make it so that the result channel gets closed in one of the to cases;
+	// a) the emebdded context times out
+	//b) the buffer gets filled
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	defer cancel()
@@ -51,7 +50,7 @@ func (bc *BufferedContext) Done() <-chan struct{} {
 
 	return ctx.Done()
 }
-*/
+
 func (bc *BufferedContext) Run(fn func(context.Context, chan string)) {
 	/* This function serves for executing the test */
 	/* Implement the rest */
