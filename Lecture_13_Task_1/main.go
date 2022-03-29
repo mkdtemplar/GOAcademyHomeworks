@@ -28,13 +28,18 @@ func (bc *BufferedContext) Done() <-chan struct{} {
 	// a) the emebdded context times out
 	//b) the buffer gets filled
 
+	if len(bc.buffer) == cap(bc.buffer) {
+		fmt.Println("Buffer limit reached")
+		bc.CancelFunc()
+	}
+
 	return bc.Context.Done()
 }
 
 func (bc *BufferedContext) Run(fn func(context.Context, chan string)) {
 	/* This function serves for executing the test */
 	/* Implement the rest */
-	fn(bc.Context, bc.buffer)
+	fn(bc, bc.buffer)
 }
 
 func main() {
@@ -47,7 +52,7 @@ func main() {
 				fmt.Println("We are done TIME out")
 				return
 			case buffer <- "bar":
-				time.Sleep(time.Millisecond * 200)
+				//time.Sleep(time.Millisecond * 200)
 				fmt.Println("bar")
 			}
 		}
