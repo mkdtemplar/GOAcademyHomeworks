@@ -52,7 +52,7 @@ func main() {
 				fmt.Println("We are done TIME out")
 				return
 			case buffer <- "bar":
-				//time.Sleep(time.Millisecond * 200)
+				time.Sleep(time.Millisecond * 200)
 				fmt.Println("bar")
 			}
 		}
