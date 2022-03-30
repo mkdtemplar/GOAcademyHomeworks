@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"os"
@@ -15,36 +16,45 @@ func NewReverseStringReader(input string) *ReverseStringReader {
 
 	r := &ReverseStringReader{strings.NewReader(input)}
 
-	//ourReverseStringReader, err := io.Copy(os.Stdout, r)
-
 	return r
-}
-
-func (receiver *ReverseStringReader) ReverseString() string {
-
-	var input string
-	receiver = NewReverseStringReader(input)
-
-	//buffer := make([]byte, 1)
-
-	result, err := io.Copy(os.Stdout, receiver)
-
-	if err == nil {
-		return string(result)
-	} else {
-		return fmt.Sprintf("%s", err)
-	}
-
 }
 
 func main() {
 
-	r := NewReverseStringReader("Ivan Markovski")
+	var str string
+	var reverseString string
 
-	res, _ := io.Copy(os.Stdout, *r)
-	for _, ch := range string(res) {
-		fmt.Println(ch)
+	fmt.Print("Enter string: ")
+	reader := bufio.NewReader(os.Stdin)
+	writer := bufio.NewWriter(os.Stdout)
+
+	str, _ = reader.ReadString('\n')
+
+	str = strings.Replace(str, "\n", "", -1)
+	str = strings.Replace(str, "\r", "", -1)
+
+	r := NewReverseStringReader(str)
+
+	buff := make([]byte, len(str))
+
+	for {
+		_, err := r.Read(buff)
+
+		if err == io.EOF {
+			break
+		}
 	}
+
 	fmt.Println()
+
+	for i := len(buff) - 1; i >= 0; i-- {
+		reverseString += string(buff[i])
+	}
+
+	r = NewReverseStringReader(reverseString)
+
+	res, _ := io.Copy(writer, r)
+
 	fmt.Println(string(res))
+
 }
