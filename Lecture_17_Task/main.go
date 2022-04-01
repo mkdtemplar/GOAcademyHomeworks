@@ -17,23 +17,7 @@ var faces = [13]string{"Deuce", "Three", "Four", "Five", "Six", "Seven", "Eight"
 	"Queen", "King", "Ace"}
 var suits = [4]string{"Clubs", "Diamonds", "Hearts", "Spades"}
 
-func compareCards(deck []DeckOfCards) {
-
-	var faceOfCard1 string
-	var suitOfCard1 string
-	var faceOfCard2 string
-	var suitOfCard2 string
-	fmt.Print("Please enter face of the card ", 1, " (Deuce, Three, Four, Five, Six, Seven, Eight, Nine, Ten,Jack, Queen, King, Ace) : ")
-	fmt.Scan(&faceOfCard1)
-
-	fmt.Print("Please enter suit of the card ", 1, " (Clubs, Diamonds, Hearts, Spades) : ")
-	fmt.Scan(&suitOfCard1)
-
-	fmt.Print("Please enter face of the card ", 2, " (Deuce, Three, Four, Five, Six, Seven, Eight, Nine, Ten,Jack, Queen, King, Ace) : ")
-	fmt.Scan(&faceOfCard2)
-
-	fmt.Print("Please enter suit of the card ", 2, " (Clubs, Diamonds, Hearts, Spades) : ")
-	fmt.Scan(&suitOfCard2)
+func compareCards(faceOfCard1, suitOfCard1, faceOfCard2, suitOfCard2 string, deck []DeckOfCards) {
 
 	var faceIndex1 int
 	var faceIndex2 int
@@ -89,15 +73,30 @@ func compareCards(deck []DeckOfCards) {
 
 func main() {
 
+	var faceOfCard1 string
+	var faceOfCard2 string
+	var suitOfCard1 string
+	var suitOfCard2 string
 	d := make([]DeckOfCards, 52)
 	
 	for i := range d {
 		d[i].deck = Card{face: faces[i%13], suit: suits[i/13]}
 	}
+	fmt.Print("Please enter face of the card ", 1, " (Deuce, Three, Four, Five, Six, Seven, Eight, Nine, Ten,Jack, Queen, King, Ace) : ")
+	fmt.Scan(&faceOfCard1)
+
+	fmt.Print("Please enter suit of the card ", 1, " (Clubs, Diamonds, Hearts, Spades) : ")
+	fmt.Scan(&suitOfCard1)
+
+	fmt.Print("Please enter face of the card ", 2, " (Deuce, Three, Four, Five, Six, Seven, Eight, Nine, Ten,Jack, Queen, King, Ace) : ")
+	fmt.Scan(&faceOfCard2)
+
+	fmt.Print("Please enter suit of the card ", 2, " (Clubs, Diamonds, Hearts, Spades) : ")
+	fmt.Scan(&suitOfCard2)
 	
 	fmt.Println()
 	
-	compareCards(d)
+	compareCards(faceOfCard1, suitOfCard1, faceOfCard2, suitOfCard2, d)
 	
 	fmt.Println()
 
