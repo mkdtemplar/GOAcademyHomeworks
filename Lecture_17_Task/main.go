@@ -25,31 +25,27 @@ func compareCards(firstCard Card, secondCard Card, deck []DeckOfCards) {
 	var suitOfCard2 string
 	fmt.Print("Please enter face of the card ", 1, " (Deuce, Three, Four, Five, Six, Seven, Eight, Nine, Ten,Jack, Queen, King, Ace) : ")
 	fmt.Scan(&faceOfCard1)
-	firstCard.face = faceOfCard1
 
 	fmt.Print("Please enter suit of the card ", 1, " (Clubs, Diamonds, Hearts, Spades) : ")
 	fmt.Scan(&suitOfCard1)
-	firstCard.suit = suitOfCard1
 
 	fmt.Print("Please enter face of the card ", 2, " (Deuce, Three, Four, Five, Six, Seven, Eight, Nine, Ten,Jack, Queen, King, Ace) : ")
 	fmt.Scan(&faceOfCard2)
-	secondCard.face = faceOfCard2
 
 	fmt.Print("Please enter suit of the card ", 2, " (Clubs, Diamonds, Hearts, Spades) : ")
 	fmt.Scan(&suitOfCard2)
-	secondCard.suit = suitOfCard2
 
 	var faceIndex1 int
 	var faceIndex2 int
 
 	for i := 0; i < len(deck); i++ {
-		if firstCard.face == deck[i].deck.face {
+		if faceOfCard1 == deck[i].deck.face {
 			faceIndex1 = i
 		}
 	}
 
 	for i := 0; i < len(deck); i++ {
-		if secondCard.face == deck[i].deck.face {
+		if faceOfCard2 == deck[i].deck.face {
 			faceIndex2 = i
 		}
 	}
@@ -59,13 +55,13 @@ func compareCards(firstCard Card, secondCard Card, deck []DeckOfCards) {
 
 	for i := 0; i < len(deck); i++ {
 
-		if firstCard.suit == deck[i].deck.suit {
+		if suitOfCard1 == deck[i].deck.suit {
 			suitIndex1 = i
 		}
 	}
 
 	for i := 0; i < len(deck); i++ {
-		if secondCard.suit == deck[i].deck.suit {
+		if suitOfCard2 == deck[i].deck.suit {
 
 			suitIndex2 = i
 		}
