@@ -17,7 +17,7 @@ var faces = [13]string{"Deuce", "Three", "Four", "Five", "Six", "Seven", "Eight"
 	"Queen", "King", "Ace"}
 var suits = [4]string{"Clubs", "Diamonds", "Hearts", "Spades"}
 
-func compareCards(firstCard Card, secondCard Card, deck []DeckOfCards) {
+func compareCards(deck []DeckOfCards) {
 
 	var faceOfCard1 string
 	var suitOfCard1 string
@@ -86,36 +86,19 @@ func compareCards(firstCard Card, secondCard Card, deck []DeckOfCards) {
 		fmt.Println("Cards are equal")
 	}
 }
-func maxCard(cards []DeckOfCards) {
 
-	var firstCard Card
-	var secondCard Card
-
-	compareCards(firstCard, secondCard, cards)
-}
 func main() {
 
 	d := make([]DeckOfCards, 52)
-	fmt.Println("Printing deck of all cards with face and suit")
-
+	
 	for i := range d {
 		d[i].deck = Card{face: faces[i%13], suit: suits[i/13]}
 	}
-
-	deckSlice := d[5:25]
+	
 	fmt.Println()
-
-	fmt.Println()
-	fmt.Println("Slice from index 5 to 25")
-	for j := range d {
-		fmt.Print(d[j], " ")
-		if j%4 == 0 && j > 0 {
-			fmt.Println()
-		}
-	}
-	maxCard(deckSlice)
-	fmt.Println()
-
+	
+	compareCards(d)
+	
 	fmt.Println()
 
 }
