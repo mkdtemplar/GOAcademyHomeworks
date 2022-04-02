@@ -5,35 +5,22 @@ import (
 
 )
 
-type Cards struct {
-	faces string
-	suits string
-}
-
 type DeckCard struct {
-	cardDeck Cards
-	expected Cards
+	card1    Card
+	card2    Card
+	expected Card
 }
 
-
-var addResults = [52]DeckCard{
-	{cardDeck: Cards{ faces: "Deuce", suits: "Clubs",
-	}},
-	{cardDeck: Cards{faces: "Three", suits: "Clubs",
-	}},
-	{cardDeck: Cards{faces: "Four", suits: "Clubs",
-	}},
-	{cardDeck: Cards{faces: "Five", suits: "Clubs",
-	}},
-	{expected: Cards{faces: "Deuce", suits: "Clubs",
-	}},
-	{expected: Cards{faces: "Three", suits: "Clubs",
-	}},
+var addResults = []DeckCard{
+	{card1: Card{face: "Deuce", suit: "Clubs"}, card2: Card{face: "Three", suit: "Clubs"}, expected: Card{face: "Deuce", suit: "Clubs"}},
+	{card1: Card{face: "Three", suit: "Clubs"}, card2: Card{face: "Three", suit: "Clubs"}, expected: Card{face: "Three", suit: "Clubs"}},
 }
-
 
 func TestInput(t *testing.T) {
-	for _, t := range addResults{
-		result := CompareCards()
+	for _, test := range addResults {
+		result := CompareCards(test.card1.face, test.card1.suit, test.card2.face, test.card2.suit)
+		if result != test.expected {
+			t.Fatal("Result not ok")
+		}
 	}
 }
