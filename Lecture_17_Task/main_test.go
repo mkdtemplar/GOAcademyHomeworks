@@ -12,7 +12,7 @@ type DeckCard struct {
 }
 
 var addResults = []DeckCard{
-	{card1: Card{face: "Deuce", suit: "Clubs"}, card2: Card{face: "Three", suit: "Clubs"}, expected: Card{face: "Deuce", suit: "Clubs"}},
+	{card1: Card{face: "Deuce", suit: "Clubs"}, card2: Card{face: "Deuce", suit: "Clubs"}, expected: Card{face: "Deuce", suit: "Clubs"}},
 	{card1: Card{face: "Three", suit: "Clubs"}, card2: Card{face: "Three", suit: "Clubs"}, expected: Card{face: "Three", suit: "Clubs"}},
 }
 
