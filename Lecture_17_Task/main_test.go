@@ -34,3 +34,16 @@ func TestInput(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkCompareCards(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		for _, test := range addResults {
+			result := CompareCards(test.card1.face, test.card1.suit, test.card2.face, test.card2.suit)
+			if result != test.expected {
+				b.Fatal("Result not ok received ", result, " expected: ", test.expected)
+			} else {
+				log.Printf("Test ok. Received %s, expected: %s\n", result, test.expected)
+			}
+		}
+	}
+}
