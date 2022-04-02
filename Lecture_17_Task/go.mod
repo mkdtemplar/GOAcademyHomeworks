@@ -1,3 +1,3 @@
-module Lecture_17_Task
+module main
 
 go 1.18
