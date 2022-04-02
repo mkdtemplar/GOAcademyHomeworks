@@ -94,11 +94,12 @@ func CompareCards(faceOfCard1, suitOfCard1, faceOfCard2, suitOfCard2 string) Car
 
 	if faceIndex1 == faceIndex2 && suitIndex1 == suitIndex2 {
 		fmt.Println("Cards are equal")
+		return Card{
+			face: deck[faceIndex1].deck.face,
+			suit: deck[suitIndex1].deck.suit,
+		}
 	}
-	return Card{
-		face: deck[faceIndex1].deck.face,
-		suit: deck[suitIndex1].deck.suit,
-	}
+	return Card{}
 }
 
 func main() {

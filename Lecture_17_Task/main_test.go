@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"testing"
 )
 
@@ -27,7 +28,9 @@ func TestInput(t *testing.T) {
 	for _, test := range addResults {
 		result := CompareCards(test.card1.face, test.card1.suit, test.card2.face, test.card2.suit)
 		if result != test.expected {
-			t.Fatal("Result not ok")
+			t.Fatal("Result not ok received ", result, " expected: ", test.expected)
+		} else {
+			log.Printf("Test ok. Received %s, expected: %s\n", result, test.expected)
 		}
 	}
 }
