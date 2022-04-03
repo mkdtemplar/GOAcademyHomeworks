@@ -25,13 +25,16 @@ func CompareCards(faceOfCard1, suitOfCard1, faceOfCard2, suitOfCard2 string) Car
 	deck := make([]DeckOfCards, 52)
 	for i := range deck {
 		deck[i].deck = Card{face: faces[i%13], suit: suits[i/13]}
-		fmt.Print(deck[i])
-		if i < len(deck)-1 {
-			fmt.Print(",")
-			if i%4 == 0 && i > 3 {
-				fmt.Println()
+		/*
+			fmt.Print(deck[i])
+			if i < len(deck)-1 {
+				fmt.Print(",")
+				if i%4 == 0 && i > 3 {
+					fmt.Println()
+				}
 			}
-		}
+
+		*/
 	}
 
 	for i := 0; i < len(deck); i++ {
