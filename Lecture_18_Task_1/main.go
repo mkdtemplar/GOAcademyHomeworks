@@ -6,6 +6,22 @@ import (
 	"time"
 )
 
+func primesAndSleep(n int, sleep time.Duration) []int {
+	var res []int
+	for k := 2; k < n; k++ {
+		for i := 2; i < n; i++ {
+			if k%i == 0 {
+				time.Sleep(sleep)
+				if k == i {
+					res = append(res, k)
+				}
+				break
+			}
+		}
+	}
+	return res
+}
+
 func goPrimesAndSleep(n int, sleep time.Duration) []int {
 	var res []int
 	var wg = &sync.WaitGroup{}
@@ -32,4 +48,5 @@ func goPrimesAndSleep(n int, sleep time.Duration) []int {
 
 func main() {
 	fmt.Println(goPrimesAndSleep(100, time.Millisecond))
+	fmt.Println(primesAndSleep(100, time.Millisecond))
 }
