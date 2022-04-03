@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3068c484-9c9d-4342-9f48-c057cd2a8e61" name="Changes" comment="For review" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportTestResults" exportFormat="Xml" outputFolder="$PROJECT_DIR$" openResultsInEditor="true" userTempatePath="" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go Application" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://C:/Program Files/Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="Lecture-19-Task" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27Iyrnfs3R0LejvXCnkEJTsCxJh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go Application" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.format.on.save.advertiser.fired" value="true" />
+    <property name="go.formatter.settings.were.checked" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
+    <property name="go.watchers.conflict.with.on.save.actions.check.performed" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
+  </component>
+  <component name="RunManager" selected="Go Test.Benchmark100GoPrimesAndSleepWith0MsSleep in Lecture_18_Task_1 (1)">
+    <configuration name="Benchmark100GoPrimesAndSleepWith0MsSleep in Lecture_18_Task_1 (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="Lecture_18_Task_1" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Lecture_18_Task_1" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gobench" />
+      <pattern value="^\QBenchmark100GoPrimesAndSleepWith0MsSleep\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Benchmark100GoPrimesWith10MSSleep in Lecture_18_Task_1" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="Lecture_18_Task_1" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Lecture_18_Task_1" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gobench" />
+      <pattern value="^\QBenchmark100GoPrimesWith10MSSleep\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Benchmark100PrimesWith0MSSleep in Lecture_18_Task_1" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="Lecture_18_Task_1" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Lecture_18_Task_1" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gobench" />
+      <pattern value="^\QBenchmark100PrimesWith0MSSleep\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="BenchmarkBenchmark100PrimesWith10MSSleep in Lecture_18_Task_1" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="Lecture_18_Task_1" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Lecture_18_Task_1" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gobench" />
+      <pattern value="^\QBenchmarkBenchmark100PrimesWith10MSSleep\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="BenchmarkBenchmark100PrimesWith5MSSleep in Lecture_18_Task_1" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="Lecture_18_Task_1" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Lecture_18_Task_1" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gobench" />
+      <pattern value="^\QBenchmarkBenchmark100PrimesWith5MSSleep\E$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.Benchmark100GoPrimesAndSleepWith0MsSleep in Lecture_18_Task_1 (1)" />
+        <item itemvalue="Go Test.BenchmarkBenchmark100PrimesWith10MSSleep in Lecture_18_Task_1" />
+        <item itemvalue="Go Test.BenchmarkBenchmark100PrimesWith5MSSleep in Lecture_18_Task_1" />
+        <item itemvalue="Go Test.Benchmark100PrimesWith0MSSleep in Lecture_18_Task_1" />
+        <item itemvalue="Go Test.Benchmark100GoPrimesWith10MSSleep in Lecture_18_Task_1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="For review" />
+    <option name="LAST_COMMIT_MESSAGE" value="For review" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Lecture_18_Task_1$Benchmark100GoPrimesAndSleepWith0MsSleep_in_Lecture_18_Task_1__1_.out" NAME="Benchmark100GoPrimesAndSleepWith0MsSleep in Lecture_18_Task_1 (1) Coverage Results" MODIFIED="1649028266721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Lecture_18_Task_1$Benchmark100GoPrimesWith10MSSleep_in_Lecture_18_Task_1.out" NAME="Benchmark100GoPrimesWith10MSSleep in Lecture_18_Task_1 Coverage Results" MODIFIED="1649027195138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Lecture_18_Task_1$Benchmark100PrimesWith5MSSleep_in_Lecture_18_Task_1.out" NAME="Benchmark100PrimesWith5MSSleep in Lecture_18_Task_1 Coverage Results" MODIFIED="1649026984397" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Lecture_18_Task_1$Benchmark100GoPrimesAndSleepWith0MsSleep_in_Lecture_18_Task_1.out" NAME="Benchmark100GoPrimesAndSleepWith0MsSleep in Lecture_18_Task_1 Coverage Results" MODIFIED="1649027040608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Lecture_18_Task_1$BenchmarkBenchmark100PrimesWith10MSSleep_in_Lecture_18_Task_1.out" NAME="BenchmarkBenchmark100PrimesWith10MSSleep in Lecture_18_Task_1 Coverage Results" MODIFIED="1649027649399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Lecture_18_Task_1$Benchmark100PrimesWith0MSSleep_in_Lecture_18_Task_1.out" NAME="Benchmark100PrimesWith0MSSleep in Lecture_18_Task_1 Coverage Results" MODIFIED="1649027481084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Lecture_18_Task_1$BenchmarkBenchmark100PrimesWith5MSSleep_in_Lecture_18_Task_1.out" NAME="BenchmarkBenchmark100PrimesWith5MSSleep in Lecture_18_Task_1 Coverage Results" MODIFIED="1649027567056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
