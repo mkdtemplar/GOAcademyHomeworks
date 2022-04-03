@@ -102,7 +102,7 @@ func CompareCards(faceOfCard1, suitOfCard1, faceOfCard2, suitOfCard2 string) Car
 			suit: deck[suitIndex1].deck.suit,
 		}
 	}
-	return Card{}
+	return Card{face: "", suit: ""}
 }
 
 func main() {

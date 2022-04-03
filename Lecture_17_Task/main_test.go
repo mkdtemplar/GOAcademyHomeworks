@@ -31,10 +31,10 @@ func TestInput(t *testing.T) {
 		t.Run(fmt.Sprintf("test-case- %d", n), func(t *testing.T) {
 			t.Parallel()
 			result := CompareCards(testCase.card1.face, testCase.card1.suit, testCase.card2.face, testCase.card2.suit)
-			if result != testCase.expected {
-				t.Fatal("Result not ok received ", result, " expected: ", testCase.expected)
+			if result.face != testCase.expected.face && result.suit != testCase.expected.suit {
+				t.Fatal("Result not ok received ", result.face, " ", result.suit, " expected: ", testCase.expected.face, " ", testCase.expected.suit)
 			} else {
-				log.Printf("Test ok. Received %s, expected: %s\n", result, test.expected)
+				fmt.Printf("Test ok. Received %s %s, expected: %s %s\n", result.face, result.suit, testCase.expected.face, testCase.expected.suit)
 			}
 		})
 
