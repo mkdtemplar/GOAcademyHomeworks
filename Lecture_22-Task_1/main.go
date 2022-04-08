@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -27,9 +28,9 @@ type TopStories struct {
 
 var wg = &sync.WaitGroup{}
 
-func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]byte {
+func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories {
 
-	var resTs []byte
+	//var resTs []byte
 	data = StoriesIDs{}
 	ts = make([]TopStories, len(data.StoryID))
 
@@ -37,7 +38,7 @@ func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]byte {
 
 	for ids := 0; ids < 10; ids++ {
 		wg.Add(1)
-		go func(res []byte, wg *sync.WaitGroup) {
+		go func(res []TopStories, wg *sync.WaitGroup) {
 			url := "https://hacker-news.firebaseio.com/v0/item/" + strconv.Itoa(data.StoryID[ids]) + ".json?print=pretty"
 
 			req, err := http.Get(url)
@@ -51,20 +52,25 @@ func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]byte {
 			var response = TopStories{}
 			json.Unmarshal(body, &response)
 
-			response = TopStories{Title: response.Title, Score: response.Score, Url: response.Url}
+			response = TopStories{
+				Score: response.Score,
+				Title: response.Title,
+				Url:   response.Url,
+			}
 
 			checkError(err)
 			ts = append(ts, response)
-			resTs, err = json.MarshalIndent(ts, "", " ")
 			wg.Done()
-		}(resTs, wg)
+		}(ts, wg)
 
 		wg.Wait()
 	}
-	return &resTs
+	return &ts
 }
 
 func main() {
+
+	//context := pagetitle.NewTitle()
 
 	file, err := ioutil.ReadFile("StoriesID.json")
 	checkError(err)
@@ -74,9 +80,13 @@ func main() {
 
 	result := TopStoriesGet(file, data, ts)
 
+	const basePath = "templates"
+
 	router := http.NewServeMux()
-	router.HandleFunc("/top", func(writer http.ResponseWriter, request *http.Request) {
-		writer.Write(*result)
+	router.HandleFunc("/api/top", func(writer http.ResponseWriter, request *http.Request) {
+		//writer.Write(*result)
+		templates := template.Must(template.ParseFiles(basePath + "/_layout.html"))
+		templates.Execute(writer, result)
 	})
 	log.Fatal(http.ListenAndServe(":9000", router))
 }
