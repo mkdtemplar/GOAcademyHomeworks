@@ -70,8 +70,6 @@ func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories 
 
 func main() {
 
-	//context := pagetitle.NewTitle()
-
 	file, err := ioutil.ReadFile("StoriesID.json")
 	checkError(err)
 
@@ -84,7 +82,6 @@ func main() {
 
 	router := http.NewServeMux()
 	router.HandleFunc("/api/top", func(writer http.ResponseWriter, request *http.Request) {
-		//writer.Write(*result)
 		templates := template.Must(template.ParseFiles(basePath + "/_layout.html"))
 		templates.Execute(writer, result)
 	})
