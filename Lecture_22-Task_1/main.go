@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"html/template"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -33,7 +34,10 @@ func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories 
 	data = StoriesIDs{}
 	ts = make([]TopStories, len(data.StoryID))
 
-	json.Unmarshal(file, &data)
+	err := json.Unmarshal(file, &data)
+	if err != nil {
+		return nil
+	}
 
 	for ids := 0; ids < 10; ids++ {
 		wg.Add(1)
@@ -43,13 +47,21 @@ func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories 
 			req, err := http.Get(url)
 			checkError(err)
 
-			defer req.Body.Close()
+			defer func(Body io.ReadCloser) {
+				err := Body.Close()
+				if err != nil {
+					log.Fatal(err)
+				}
+			}(req.Body)
 
 			body, err := ioutil.ReadAll(req.Body)
 			checkError(err)
 
 			var response = TopStories{}
-			json.Unmarshal(body, &response)
+			err = json.Unmarshal(body, &response)
+			if err != nil {
+				return
+			}
 
 			response = TopStories{Score: response.Score, Title: response.Title, Url: response.Url}
 
@@ -78,7 +90,10 @@ func main() {
 	router := http.NewServeMux()
 	router.HandleFunc("/api/top", func(writer http.ResponseWriter, request *http.Request) {
 		templates := template.Must(template.ParseFiles(basePath + "/_layout.html"))
-		templates.Execute(writer, *result)
+		err := templates.Execute(writer, *result)
+		if err != nil {
+			return
+		}
 	})
 	log.Fatal(http.ListenAndServe(":9000", router))
 }
