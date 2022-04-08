@@ -30,7 +30,6 @@ var wg = &sync.WaitGroup{}
 
 func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories {
 
-	//var resTs []byte
 	data = StoriesIDs{}
 	ts = make([]TopStories, len(data.StoryID))
 
@@ -52,11 +51,7 @@ func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories 
 			var response = TopStories{}
 			json.Unmarshal(body, &response)
 
-			response = TopStories{
-				Score: response.Score,
-				Title: response.Title,
-				Url:   response.Url,
-			}
+			response = TopStories{Score: response.Score, Title: response.Title, Url: response.Url}
 
 			checkError(err)
 			ts = append(ts, response)
@@ -83,7 +78,7 @@ func main() {
 	router := http.NewServeMux()
 	router.HandleFunc("/api/top", func(writer http.ResponseWriter, request *http.Request) {
 		templates := template.Must(template.ParseFiles(basePath + "/_layout.html"))
-		templates.Execute(writer, result)
+		templates.Execute(writer, *result)
 	})
 	log.Fatal(http.ListenAndServe(":9000", router))
 }
