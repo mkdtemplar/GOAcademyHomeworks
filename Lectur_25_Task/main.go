@@ -200,8 +200,8 @@ func main() {
 	fmt.Print("Enter 1. if you want to see results in JSON format or Enter 2 for regular format:")
 	fmt.Scan(&choice)
 
-	fmt.Println("Wrong choice")
 	for choice != 1 && choice != 2 {
+		fmt.Println("Wrong choice")
 		fmt.Print("Enter 1. if you want to see results in JSON format or Enter 2 for regular format:")
 		fmt.Scan(&choice)
 	}
