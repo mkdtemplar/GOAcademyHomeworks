@@ -1,14 +1,17 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
 	"io/ioutil"
 	"log"
+	_ "modernc.org/sqlite"
 	"net/http"
 	"sync"
+	"time"
 )
 
 func checkError(err error) {
@@ -18,6 +21,7 @@ func checkError(err error) {
 }
 
 var wg = &sync.WaitGroup{}
+var db *sql.DB
 
 type StoryId []int
 
@@ -25,6 +29,14 @@ type TopStories struct {
 	Score int    `json:"score"`
 	Title string `json:"title"`
 	Url   string `json:"url"`
+}
+
+type DbStory struct {
+	STORY_ID  int
+	TITLE     string
+	SCORE     int
+	URL       string
+	TimeStamp string
 }
 
 func GetStoryID() StoryId {
@@ -49,7 +61,47 @@ func GetStoryID() StoryId {
 	return response
 }
 
+func CheckTime() bool {
+	var list DbStory
+	var listTimes []string
+	db, err := sql.Open("sqlite", "Stories.db")
+	row, err := db.Query("SELECT DISTINCT TimeStamp FROM topstories ORDER BY TimeStamp ")
+	defer func(row *sql.Rows) {
+		err := row.Close()
+		if err != nil {
+
+		}
+	}(row)
+
+	for row.Next() {
+		err = row.Scan(&list.TimeStamp)
+		listTimes = append(listTimes, list.TimeStamp)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	if len(listTimes) > 0 {
+		timeDb := listTimes[0]
+		timeParsed, _ := time.Parse("15:04:05", timeDb)
+		timeHour := time.Now().Hour()
+		timeParsedHour := timeParsed.Hour()
+		if timeHour-timeParsedHour > 1 {
+			return true
+		}
+	}
+	db.Close()
+	return false
+}
+
 func TopStoriesGet() *[]TopStories {
+
+	db, err := sql.Open("sqlite", "Stories.db")
+
+	InsertSQL := `INSERT INTO topstories (STORY_ID, TITLE, SCORE, URL, TimeStamp) VALUES (?,?,?,?, time('now', 'localtime'))`
+
+	statement, err := db.Prepare(InsertSQL)
+
+	checkError(err)
 
 	data := GetStoryID()
 
@@ -77,7 +129,8 @@ func TopStoriesGet() *[]TopStories {
 			if err != nil {
 				return
 			}
-
+			_, err2 := statement.Exec(data[ids], responseStories.Title, responseStories.Score, responseStories.Url)
+			checkError(err2)
 			responseStories = TopStories{Score: responseStories.Score, Title: responseStories.Title, Url: responseStories.Url}
 
 			checkError(err)
@@ -88,23 +141,86 @@ func TopStoriesGet() *[]TopStories {
 
 		wg.Wait()
 	}
+	db.Close()
 	return &ts
 }
 
 func main() {
 
-	result := TopStoriesGet()
+	var list DbStory
 
-	const basePath = "templates"
+	listStories := make([]DbStory, 0)
 
-	router := http.NewServeMux()
-	router.HandleFunc("/api/top", func(writer http.ResponseWriter, request *http.Request) {
-		templates := template.Must(template.ParseFiles(basePath + "/_layout.html"))
-		err := templates.Execute(writer, result)
+	db, err := sql.Open("sqlite", "Stories.db")
+
+	if CheckTime() {
+		DeleteSQL := `DELETE FROM topstories`
+
+		statementDel, err := db.Prepare(DeleteSQL)
+		checkError(err)
+
+		_, err = statementDel.Exec()
+		checkError(err)
+		result := TopStoriesGet()
+
+		const basePath = "templates"
+
+		router := http.NewServeMux()
+		router.HandleFunc("/api/top", func(writer http.ResponseWriter, request *http.Request) {
+			templates := template.Must(template.ParseFiles(basePath + "/_layout.html"))
+			err := templates.Execute(writer, result)
+			if err != nil {
+				return
+			}
+		})
+
+		log.Fatal(http.ListenAndServe(":9000", router))
+	}
+
+	rowSelect, err := db.Query("SELECT * FROM topstories")
+	checkError(err)
+	defer func(rowSelect *sql.Rows) {
+		err := rowSelect.Close()
 		if err != nil {
-			return
-		}
-	})
-	log.Fatal(http.ListenAndServe(":9000", router))
 
+		}
+	}(rowSelect)
+	for rowSelect.Next() {
+		err = rowSelect.Scan(&list.STORY_ID, &list.TITLE, &list.SCORE, &list.URL, &list.TimeStamp)
+		checkError(err)
+
+		listStories = append(listStories, DbStory{
+			STORY_ID: list.STORY_ID, TITLE: list.TITLE, SCORE: list.SCORE, URL: list.URL, TimeStamp: list.TimeStamp,
+		})
+
+	}
+
+	var choice int
+
+	fmt.Print("Enter 1. if you want to see results in JSON format or Enter 2 for regular format:")
+	fmt.Scan(&choice)
+
+	fmt.Println("Wrong choice")
+	for choice != 1 && choice != 2 {
+		fmt.Print("Enter 1. if you want to see results in JSON format or Enter 2 for regular format:")
+		fmt.Scan(&choice)
+	}
+	switch choice {
+	case 1:
+		jm, err := json.MarshalIndent(listStories, "", " ")
+		checkError(err)
+		fmt.Println(string(jm))
+		break
+	case 2:
+		for _, st := range listStories {
+			fmt.Println("Story Id: ", st.STORY_ID)
+			fmt.Println("Title: ", st.TITLE)
+			fmt.Println("Score: ", st.SCORE)
+			fmt.Println("URL: ", st.URL)
+			fmt.Println("Time stamp: ", st.TimeStamp)
+		}
+		break
+	}
+
+	db.Close()
 }
