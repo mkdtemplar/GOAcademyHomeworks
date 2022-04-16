@@ -23,9 +23,12 @@ func main() {
 			}
 		})
 
-		http.ListenAndServe(":9000", router)
-
+		err := http.ListenAndServe(":9000", router)
+		if err != nil {
+			return
+		}
 	}
+
 	for _, ins := range result {
 		listStories = append(listStories, *ins)
 	}
@@ -56,5 +59,4 @@ func main() {
 		}
 		break
 	}
-
 }
