@@ -11,6 +11,7 @@ func main() {
 
 	listStories := make([]topstories, 0)
 	result := TopStoriesGet()
+
 	if CheckTime() {
 		const basePath = "templates"
 
@@ -24,9 +25,7 @@ func main() {
 		})
 
 		err := http.ListenAndServe(":9000", router)
-		if err != nil {
-			return
-		}
+		checkError(err)
 	}
 
 	for _, ins := range result {
