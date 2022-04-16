@@ -77,7 +77,7 @@ func TopStoriesGet() []*topstories {
 
 	ts := make([]*topstories, 0)
 	sqlDb.DeleteAll()
-	for ids := 0; ids < 10; ids++ {
+	for ids := 0; ids < 20; ids++ {
 		wg.Add(1)
 		go func(res []*topstories, wg *sync.WaitGroup) {
 			url := fmt.Sprintf("%s%d%s", "https://hacker-news.firebaseio.com/v0/item/", data[ids], ".json?print=pretty")

@@ -11,7 +11,7 @@ func main() {
 
 	listStories := make([]topstories, 0)
 	result := TopStoriesGet()
-	if !CheckTime() {
+	if CheckTime() {
 		const basePath = "templates"
 
 		router := http.NewServeMux()
