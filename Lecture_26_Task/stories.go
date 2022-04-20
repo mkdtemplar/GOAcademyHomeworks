@@ -55,10 +55,9 @@ func GetStoryID() StoryId {
 
 func CheckTime() bool {
 	db, err := gorm.Open(sqlite.Open("Stories.db"), &gorm.Config{})
-	var init *StoriesRepo
-	init.NewStoriesRepo(db)
+
 	checkError(err)
-	sqlDb := init.NewStoriesRepo(db)
+	sqlDb := NewStoriesRepo(db)
 	timeDb := sqlDb.GetTime()
 
 	timeParsed, _ := time.Parse("15:04:05", timeDb)

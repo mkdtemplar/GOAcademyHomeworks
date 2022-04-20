@@ -8,12 +8,7 @@ type StoriesRepo struct {
 	db *gorm.DB
 }
 
-func (r *StoriesRepo) NewStoriesRepo(db *gorm.DB) *StoriesRepo {
-	return &StoriesRepo{db: db}
-}
-
 type Repo interface {
-	NewStoriesRepo(db *gorm.DB) *StoriesRepo
 	GetTime() string
 	DeleteAll()
 	InsertData(insert []*topstories)
