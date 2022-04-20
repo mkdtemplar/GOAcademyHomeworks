@@ -69,7 +69,7 @@ func CheckTime() bool {
 		timeParsedFromDB.Hour(), timeParsedFromDB.Minute(), timeParsedFromDB.Second(), timeParsedFromDB.Nanosecond(), time.UTC)
 
 	timeAccess := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), time.Now().Minute(),
-		time.Now().Second(), time.Now().Nanosecond(), time.UTC)
+		time.Now().Second(), 0, time.UTC)
 
 	if dateDb.Before(timeAccess) {
 		timeHour := time.Now().Hour()
@@ -78,7 +78,6 @@ func CheckTime() bool {
 			return true
 		}
 	}
-
 	return false
 }
 func TopStoriesGet() []*topstories {
