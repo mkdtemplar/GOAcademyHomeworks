@@ -8,7 +8,6 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	_ "modernc.org/sqlite"
 	"net/http"
 	"sync"
 	"time"
