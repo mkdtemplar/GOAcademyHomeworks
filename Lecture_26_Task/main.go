@@ -3,13 +3,15 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 	"html/template"
 	"net/http"
 )
 
 func main() {
 
-	listStories := make([]topstories, 0)
+	listStories := make([]*topstories, 0)
 
 	if CheckTime() {
 		result := TopStoriesGet()
@@ -27,10 +29,10 @@ func main() {
 		err := http.ListenAndServe(":9000", router)
 		checkError(err)
 	} else if !CheckTime() {
-		result := TopStoriesGet()
-		for _, ins := range result {
-			listStories = append(listStories, *ins)
-		}
+		db, err := gorm.Open(sqlite.Open("Stories.db"), &gorm.Config{})
+		checkError(err)
+		sqlDb := NewStoriesRepo(db)
+		sqlDb.ReadAll(listStories)
 
 		var choice int
 
