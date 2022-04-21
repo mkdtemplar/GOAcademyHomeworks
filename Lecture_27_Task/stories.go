@@ -66,17 +66,15 @@ func CheckTime() bool {
 	timeParsedFromDB, err := time.Parse("2006-01-02 15:04:05", timeDb)
 	checkError(err)
 	dateDb := time.Date(timeParsedFromDB.Year(), timeParsedFromDB.Month(), timeParsedFromDB.Day(),
-		timeParsedFromDB.Hour(), timeParsedFromDB.Minute(), timeParsedFromDB.Second(), timeParsedFromDB.Nanosecond(), time.UTC)
+		timeParsedFromDB.Hour(), timeParsedFromDB.Minute(), timeParsedFromDB.Second(), 0, time.UTC)
 
 	timeAccess := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), time.Now().Minute(),
 		time.Now().Second(), 0, time.UTC)
 
-	if dateDb.Before(timeAccess) {
-		timeHour := time.Now().Hour()
-		timeParsedHour := timeParsedFromDB.Hour()
-		if timeHour-timeParsedHour > 1 {
-			return true
-		}
+	timeHour := time.Now().Hour()
+	timeParsedHour := timeParsedFromDB.Hour()
+	if dateDb.Before(timeAccess) || timeHour-timeParsedHour > 1 {
+		return true
 	}
 	return false
 }
@@ -88,7 +86,10 @@ func TopStoriesGet() []*topstories {
 	data := GetStoryID()
 
 	ts := make([]*topstories, 0)
-	db.DeleteAllRecords(context.Background())
+	err = db.DeleteAllRecords(context.Background())
+	if err != nil {
+		return nil
+	}
 	for ids := 0; ids < 20; ids++ {
 		wg.Add(1)
 		go func(res []*topstories, wg *sync.WaitGroup) {
