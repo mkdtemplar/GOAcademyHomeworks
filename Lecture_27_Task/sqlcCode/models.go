@@ -7,9 +7,9 @@ package sqlcCode
 import ()
 
 type Topstory struct {
-	StoryID   int32
+	StoryID   int64
 	Title     string
-	Score     string
+	Score     int64
 	Url       string
 	Timestamp string
 }

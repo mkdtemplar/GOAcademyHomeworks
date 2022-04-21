@@ -116,9 +116,9 @@ func TopStoriesGet() []*topstories {
 				URL: responseStories.URL, TimeStamp: time.Now().Format("2006-01-02 15:04:05")}
 
 			db.InsertData(context.Background(), sqlcCode.InsertDataParams{
-				StoryID:   int32(data[ids]),
+				StoryID:   int64(data[ids]),
 				Title:     responseStories.TITLE,
-				Score:     string(responseStories.SCORE),
+				Score:     int64(responseStories.SCORE),
 				Url:       responseStories.URL,
 				Timestamp: time.Now().Format("2006-01-02 15:04:05"),
 			})

@@ -35,9 +35,9 @@ INSERT INTO topstories (STORY_ID, TITLE, SCORE, URL, TimeStamp) VALUES (?,?,?,?,
 `
 
 type InsertDataParams struct {
-	StoryID   int32
+	StoryID   int64
 	Title     string
-	Score     string
+	Score     int64
 	Url       string
 	Timestamp string
 }
