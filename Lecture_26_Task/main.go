@@ -11,10 +11,11 @@ import (
 
 func main() {
 
-	listStories := make([]*topstories, 0)
+	var stories []topstories
 
 	if CheckTime() {
 		result := TopStoriesGet()
+
 		const basePath = "templates"
 
 		router := http.NewServeMux()
@@ -31,8 +32,7 @@ func main() {
 	} else if !CheckTime() {
 		db, err := gorm.Open(sqlite.Open("Stories.db"), &gorm.Config{})
 		checkError(err)
-		sqlDb := NewStoriesRepo(db)
-		sqlDb.ReadAll(listStories)
+		db.Find(&stories)
 
 		var choice int
 
@@ -46,12 +46,12 @@ func main() {
 		}
 		switch choice {
 		case 1:
-			jm, err := json.MarshalIndent(listStories, "", " ")
+			jm, err := json.MarshalIndent(stories, "", " ")
 			checkError(err)
 			fmt.Println(string(jm))
 			break
 		case 2:
-			for _, st := range listStories {
+			for _, st := range stories {
 				fmt.Println("Story Id: ", st.STORY_ID)
 				fmt.Println("Title: ", st.TITLE)
 				fmt.Println("Score: ", st.SCORE)

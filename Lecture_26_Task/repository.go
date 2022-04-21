@@ -40,7 +40,3 @@ func (getAll *StoriesRepo) ReadAll(stories []*topstories) {
 
 	getAll.db.Find(&stories)
 }
-
-func CreateRepository(db *gorm.DB) Repo {
-	return &StoriesRepo{db: db}
-}
