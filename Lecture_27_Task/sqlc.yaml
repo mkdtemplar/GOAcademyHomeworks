@@ -1,7 +1,0 @@
-version: 1
-packages:
-    - path: "sqlcCode"
-      name: "sqlcCode"
-      engine: "mysql"
-      schema: "schema.sql"
-      queries: "query.sql"
