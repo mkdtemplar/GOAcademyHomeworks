@@ -82,11 +82,21 @@ func CheckTime() bool {
 	}
 	if len(listTimes) > 0 {
 		timeDb := listTimes[0]
-		timeParsed, _ := time.Parse("15:04:05", timeDb)
-		timeHour := time.Now().Hour()
-		timeParsedHour := timeParsed.Hour()
-		if timeHour-timeParsedHour > 1 {
-			return true
+
+		timeParsedFromDB, err := time.Parse("2006-01-02 15:04:05", timeDb)
+		checkError(err)
+		dateDb := time.Date(timeParsedFromDB.Year(), timeParsedFromDB.Month(), timeParsedFromDB.Day(),
+			timeParsedFromDB.Hour(), timeParsedFromDB.Minute(), timeParsedFromDB.Second(), timeParsedFromDB.Nanosecond(), time.UTC)
+
+		timeAccess := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), time.Now().Minute(),
+			time.Now().Second(), 0, time.UTC)
+
+		if dateDb.Before(timeAccess) {
+			timeHour := time.Now().Hour()
+			timeParsedHour := timeParsedFromDB.Hour()
+			if timeHour-timeParsedHour > 1 {
+				return true
+			}
 		}
 	}
 	db.Close()
@@ -96,8 +106,9 @@ func CheckTime() bool {
 func TopStoriesGet() *[]TopStories {
 
 	db, err := sql.Open("sqlite", "Stories.db")
+	timeNow := time.Now().Format("2006-01-02 15:04:05")
 
-	InsertSQL := `INSERT INTO topstories (STORY_ID, TITLE, SCORE, URL, TimeStamp) VALUES (?,?,?,?, time('now', 'localtime'))`
+	InsertSQL := `INSERT INTO topstories (STORY_ID, TITLE, SCORE, URL, TimeStamp) VALUES (?,?,?,?, ?)`
 
 	statement, err := db.Prepare(InsertSQL)
 
@@ -129,7 +140,7 @@ func TopStoriesGet() *[]TopStories {
 			if err != nil {
 				return
 			}
-			_, err2 := statement.Exec(data[ids], responseStories.Title, responseStories.Score, responseStories.Url)
+			_, err2 := statement.Exec(data[ids], responseStories.Title, responseStories.Score, responseStories.Url, timeNow)
 			checkError(err2)
 			responseStories = TopStories{Score: responseStories.Score, Title: responseStories.Title, Url: responseStories.Url}
 
