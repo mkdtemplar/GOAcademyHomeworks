@@ -2,12 +2,12 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strconv"
 	"sync"
 )
 
@@ -17,32 +17,44 @@ func checkError(err error) {
 	}
 }
 
-type StoriesIDs struct {
-	StoryID []int `json:"storyID"`
-}
-
 type TopStories struct {
 	Score int    `json:"score"`
 	Title string `json:"title"`
 	Url   string `json:"url"`
 }
+type StoryID []int
 
 var wg = &sync.WaitGroup{}
 
-func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories {
+func GetStoryID() StoryID {
+	res, err := http.Get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
+	checkError(err)
 
-	data = StoriesIDs{}
-	ts = make([]TopStories, len(data.StoryID))
+	defer func(Body io.ReadCloser) {
+		err = Body.Close()
+		if err != nil {
 
-	err := json.Unmarshal(file, &data)
-	if err != nil {
-		return nil
-	}
+		}
+	}(res.Body)
+
+	body, err := ioutil.ReadAll(res.Body)
+
+	var response StoryID
+
+	err = json.Unmarshal(body, &response)
+
+	return response
+}
+
+func TopStoriesGet() *[]TopStories {
+
+	data := GetStoryID()
+	ts := make([]TopStories, 0)
 
 	for ids := 0; ids < 10; ids++ {
 		wg.Add(1)
-		go func(res []TopStories, wg *sync.WaitGroup) {
-			url := "https://hacker-news.firebaseio.com/v0/item/" + strconv.Itoa(data.StoryID[ids]) + ".json?print=pretty"
+		go func(res *[]TopStories, wg *sync.WaitGroup) {
+			url := fmt.Sprintf("%s%d%s", "https://hacker-news.firebaseio.com/v0/item/", data[ids], ".json?print=pretty")
 
 			req, err := http.Get(url)
 			checkError(err)
@@ -68,7 +80,7 @@ func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories 
 			checkError(err)
 			ts = append(ts, response)
 			wg.Done()
-		}(ts, wg)
+		}(&ts, wg)
 
 		wg.Wait()
 	}
@@ -77,13 +89,7 @@ func TopStoriesGet(file []byte, data StoriesIDs, ts []TopStories) *[]TopStories 
 
 func main() {
 
-	file, err := ioutil.ReadFile("StoriesID.json")
-	checkError(err)
-
-	data := StoriesIDs{}
-	ts := make([]TopStories, len(data.StoryID))
-
-	result := TopStoriesGet(file, data, ts)
+	result := TopStoriesGet()
 
 	const basePath = "templates"
 

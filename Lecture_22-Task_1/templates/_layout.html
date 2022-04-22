@@ -7,10 +7,12 @@
 <h1>Top Stories</h1>
 <ul>
     {{range .}}
-<p>Title: {{.Title}}</p>
-<li>Score: {{.Score}}</li>
-<li><a href= {{.Url}} target="_blank">URL: {{.Url}}</a> </li>
+    <p>Title: {{.Title}}</p>
+    <li>Score: {{.Score}}</li>
+    <li><a href= {{.Url}} target="_blank">URL: {{.Url}}</a> </li>
+    <hr>
     {{end}}
+
 </ul>
 </body>
 </html>
