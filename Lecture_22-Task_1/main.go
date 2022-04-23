@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os/exec"
 	"sync"
 )
 
@@ -101,5 +102,17 @@ func main() {
 			return
 		}
 	})
-	log.Fatal(http.ListenAndServe(":9000", router))
+
+	exit := make(chan struct{}, 1)
+
+	go func() {
+		log.Fatal(http.ListenAndServe(":8080", router))
+		exit <- struct{}{}
+	}()
+
+	err := exec.Command("rundll32", "url.dll,FileProtocolHandler", "http://localhost:8080/api/top").Start()
+	if err != nil {
+		fmt.Println(err)
+	}
+	<-exit
 }
