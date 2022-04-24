@@ -16,7 +16,7 @@ func main() {
 
 	var stories []topstories
 	var err error
-	if CheckTime() {
+	if CheckTime() == true {
 		result := TopStoriesGet()
 
 		const basePath = "templates"
@@ -46,7 +46,7 @@ func main() {
 		}
 		checkError(err)
 		<-exit
-	} else if !CheckTime() {
+	} else if CheckTime() == false {
 		db, err := gorm.Open(sqlite.Open("Stories.db"), &gorm.Config{})
 		checkError(err)
 		db.Find(&stories)
