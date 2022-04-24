@@ -25,7 +25,7 @@ type topstories struct {
 	TITLE     string
 	SCORE     int
 	URL       string
-	TimeStamp string
+	TimeStamp string `gorm:"column:TimeStamp"`
 }
 
 type StoryId []int
@@ -111,8 +111,7 @@ func TopStoriesGet() []*topstories {
 			if err != nil {
 				return
 			}
-
-			responseStories = topstories{STORY_ID: data[ids], SCORE: responseStories.SCORE, TITLE: responseStories.TITLE, URL: responseStories.URL, TimeStamp: time.Now().Format("15:04:05")}
+			responseStories = topstories{STORY_ID: data[ids], SCORE: responseStories.SCORE, TITLE: responseStories.TITLE, URL: responseStories.URL, TimeStamp: time.Now().Format("2006-01-02 15:04:05")}
 
 			ts = append(ts, &responseStories)
 

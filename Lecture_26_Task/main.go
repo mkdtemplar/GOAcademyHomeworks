@@ -6,13 +6,16 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"html/template"
+	"log"
 	"net/http"
+	"os/exec"
+	"runtime"
 )
 
 func main() {
 
 	var stories []topstories
-
+	var err error
 	if CheckTime() {
 		result := TopStoriesGet()
 
@@ -27,8 +30,22 @@ func main() {
 			}
 		})
 
-		err := http.ListenAndServe(":9000", router)
+		exit := make(chan struct{}, 1)
+
+		go func() {
+			log.Fatal(http.ListenAndServe(":9000", router))
+			exit <- struct{}{}
+		}()
+		switch runtime.GOOS {
+		case "windows":
+			err = exec.Command("rundll32", "url.dll,FileProtocolHandler", "http://localhost:9000/api/top").Start()
+		case "darwin":
+			err = exec.Command("open", "http://localhost:9000/api/top").Start()
+		case "linux":
+			err = exec.Command("xdg-open", "http://localhost:9000/api/top").Start()
+		}
 		checkError(err)
+		<-exit
 	} else if !CheckTime() {
 		db, err := gorm.Open(sqlite.Open("Stories.db"), &gorm.Config{})
 		checkError(err)
