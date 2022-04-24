@@ -88,10 +88,10 @@ func CheckTime() bool {
 		timeParsedFromDB, err := time.Parse("2006-01-02 15:04:05", timeDb)
 		checkError(err)
 		dateDb := time.Date(timeParsedFromDB.Year(), timeParsedFromDB.Month(), timeParsedFromDB.Day(),
-			timeParsedFromDB.Hour(), timeParsedFromDB.Minute(), timeParsedFromDB.Second(), 0, time.UTC)
+			timeParsedFromDB.Hour(), 0, 0, 0, time.UTC)
 
-		timeAccess := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), time.Now().Minute(),
-			time.Now().Second(), 0, time.UTC)
+		timeAccess := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), 0,
+			0, 0, time.UTC)
 
 		timeHour := time.Now().Hour()
 		timeParsedHour := timeParsedFromDB.Hour()
@@ -164,7 +164,7 @@ func main() {
 
 	db, err := sql.Open("sqlite", "Stories.db")
 
-	if !CheckTime() {
+	if CheckTime() == true {
 		DeleteSQL := `DELETE FROM topstories`
 
 		statementDel, err := db.Prepare(DeleteSQL)
