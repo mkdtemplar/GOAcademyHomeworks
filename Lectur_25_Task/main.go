@@ -10,6 +10,8 @@ import (
 	"log"
 	_ "modernc.org/sqlite"
 	"net/http"
+	"os/exec"
+	"runtime"
 	"sync"
 	"time"
 )
@@ -86,7 +88,7 @@ func CheckTime() bool {
 		timeParsedFromDB, err := time.Parse("2006-01-02 15:04:05", timeDb)
 		checkError(err)
 		dateDb := time.Date(timeParsedFromDB.Year(), timeParsedFromDB.Month(), timeParsedFromDB.Day(),
-			timeParsedFromDB.Hour(), timeParsedFromDB.Minute(), timeParsedFromDB.Second(), timeParsedFromDB.Nanosecond(), time.UTC)
+			timeParsedFromDB.Hour(), timeParsedFromDB.Minute(), timeParsedFromDB.Second(), 0, time.UTC)
 
 		timeAccess := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), time.Now().Minute(),
 			time.Now().Second(), 0, time.UTC)
@@ -183,7 +185,24 @@ func main() {
 			}
 		})
 
-		log.Fatal(http.ListenAndServe(":9000", router))
+		exit := make(chan struct{}, 1)
+
+		go func() {
+			log.Fatal(http.ListenAndServe(":9000", router))
+			exit <- struct{}{}
+		}()
+		switch runtime.GOOS {
+		case "windows":
+			err = exec.Command("rundll32", "url.dll,FileProtocolHandler", "http://localhost:9000/api/top").Start()
+		case "darwin":
+			err = exec.Command("open", "http://localhost:9000/api/top").Start()
+		case "linux":
+			err = exec.Command("xdg-open", "http://localhost:9000/api/top").Start()
+		}
+		if err != nil {
+			fmt.Println(err)
+		}
+		<-exit
 	}
 
 	rowSelect, err := db.Query("SELECT * FROM topstories")
