@@ -17,7 +17,7 @@ func main() {
 
 	listStories := make([]sqlcCode.Topstory, 0)
 
-	if !CheckTime() {
+	if CheckTime() == true {
 		result := TopStoriesGet()
 		const basePath = "templates"
 
@@ -52,7 +52,7 @@ func main() {
 		}
 		<-exit
 
-	} else if CheckTime() {
+	} else if CheckTime() == false {
 		conn, err := sql.Open("sqlite", "Stories.db")
 		checkError(err)
 		db := sqlcCode.New(conn)
