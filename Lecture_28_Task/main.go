@@ -9,13 +9,15 @@ import (
 	"html/template"
 	_ "modernc.org/sqlite"
 	"net/http"
+	"os/exec"
+	"runtime"
 )
 
 func main() {
 
 	listStories := make([]sqlcCode.Topstory, 0)
 
-	if !CheckTime() {
+	if CheckTime() == true {
 		result := TopStoriesGet()
 		const basePath = "templates"
 
@@ -28,10 +30,29 @@ func main() {
 			}
 		})
 
-		err := http.ListenAndServe(":9000", router)
-		checkError(err)
+		exit := make(chan struct{}, 1)
+		// start the server
+		go func() {
+			fmt.Println("Listening on localhost:8080")
+			http.ListenAndServe(":8080", router)
+			exit <- struct{}{}
+		}()
 
-	} else if CheckTime() {
+		var err error
+		switch runtime.GOOS {
+		case "windows":
+			err = exec.Command("rundll32", "url.dll,FileProtocolHandler", "http://localhost:8080/api/top").Start()
+		case "darwin":
+			err = exec.Command("open", "http://localhost:8080/api/top").Start()
+		case "linux":
+			err = exec.Command("xdg-open", "http://localhost:8080/api/top").Start()
+		}
+		if err != nil {
+			fmt.Println(err)
+		}
+		<-exit
+
+	} else if CheckTime() == false {
 		conn, err := sql.Open("sqlite", "Stories.db")
 		checkError(err)
 		db := sqlcCode.New(conn)
