@@ -69,12 +69,11 @@ func CheckTime() bool {
 		timeAccess := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), time.Now().Minute(),
 			time.Now().Second(), 0, time.UTC)
 
-		if dateDb.Before(timeAccess) {
-			timeHour := time.Now().Hour()
-			timeParsedHour := timeParsedFromDB.Hour()
-			if timeHour-timeParsedHour > 1 {
-				return true
-			}
+		timeHour := time.Now().Hour()
+		timeParsedHour := timeParsedFromDB.Hour()
+
+		if dateDb.Before(timeAccess) || timeHour-timeParsedHour > 1 {
+			return true
 		}
 	}
 
