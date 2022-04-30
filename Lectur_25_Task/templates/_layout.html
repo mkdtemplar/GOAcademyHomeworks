@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+</head>
+<body>
+<h1>Top Stories</h1>
+<ul>
+    {{range .}}
+    <p>Title: {{.Title}}</p>
+    <li>Score: {{.Score}}</li>
+    <li><a href= {{.Url}} target="_blank">URL: {{.Url}}</a> </li>
+    <hr>
+    {{end}}
+
+</ul>
+</body>
+</html>
