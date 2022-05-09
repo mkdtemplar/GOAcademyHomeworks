@@ -1,15 +1,17 @@
 package main
 
 import (
+	controlers "final/Controlers"
+	models "final/Models"
 	"final/cmd"
+	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
 
+	models.ConnectDatabase()
 	router := gin.Default()
 
 	router.Use(func(ctx *gin.Context) {
@@ -18,10 +20,19 @@ func main() {
 		ctx.Next()
 	})
 
-	// Add your handler (API endpoint) registrations here
-	router.GET("/api", func(ctx *gin.Context) {
-		ctx.JSON(200, "Hello, World!")
-	})
+	// Task endpoints
+	router.GET("/api/tasks", controlers.FindTasks)
+
+	router.GET("/api/tasks/:id", controlers.FindSingleTask)
+
+	router.PATCH("/api/tasks/:id", controlers.UpdateTask)
+
+	router.DELETE("/api/tasks/:id", controlers.DeleteTask)
+
+	// List endpoints
+	router.GET("/api/lists", controlers.FindLists)
+
+	router.POST("/api/lists", controlers.CreateList)
 
 	// Do not touch this line!
 	log.Fatal(http.ListenAndServe(":3000", cmd.CreateCommonMux(router)))

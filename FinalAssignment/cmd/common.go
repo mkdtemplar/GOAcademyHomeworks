@@ -15,9 +15,17 @@ func CreateCommonMux(h http.Handler) http.Handler {
 	fs := http.FileServer(http.Dir("./client/build/static"))
 	r.Handle("/swagger/", http.StripPrefix("/swagger", swaggerui.Handler(spec)))
 	r.HandleFunc("/app", index)
+	r.HandleFunc("api/lists", index)
+	r.HandleFunc("api/tasks/", index)
+	r.HandleFunc("api/tasks", index)
+	r.HandleFunc("api/lists/{id}/tasks", index)
 	r.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	r.Handle("/api", h)
+	r.Handle("/api/lists", h)
+	r.Handle("/api/tasks/", h)
+	r.Handle("/api/tasks", h)
+	r.Handle("/api/lists/{id}/tasks", h)
 
 	return r
 }
