@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-// GET /api
-// Get all Task
 func FindTasks(c *gin.Context) {
 	var task []models.Task
 	models.DB.Find(&task)
@@ -16,17 +14,23 @@ func FindTasks(c *gin.Context) {
 }
 
 func CreateTask(c *gin.Context) {
-	// Validate input
+	var list models.List
 	var input models.CreateTask
+
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
+
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	task := models.Task{
-		Text: input.Text,
-		//ListId:    input.ListId,
-		//Completed: input.Completed,
+		Text:      input.Text,
+		ListId:    input.ListId,
+		Completed: input.Completed,
 	}
 	models.DB.Create(&task)
 

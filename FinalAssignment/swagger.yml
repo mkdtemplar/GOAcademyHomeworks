@@ -25,7 +25,7 @@
           '200':
             description: successful operation
             schema:
-              type: array
+              type: object
               items: 
                 $ref: '#/definitions/Task'
       post:
@@ -40,6 +40,10 @@
               properties:
                 text:
                   type: string
+                list_id:
+                  type: integer
+                completed:
+                  type: boolean
           - name: id
             in: path
             description: 'Id of List'

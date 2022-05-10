@@ -55,6 +55,12 @@
               "properties": {
                 "text": {
                   "type": "string"
+                },
+                "list_id": {
+                  "type": "integer"
+                },
+                "completed": {
+                  "type": "boolean"
                 }
               }
             }
