@@ -30,6 +30,26 @@ func CreateList(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": list})
 }
 
+func DeleteList(c *gin.Context) {
+
+	var list models.List
+	var task models.Task
+
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
+
+	if err := models.DB.Where("list_id = ?", c.Param("id")).First(&task).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
+	models.DB.Delete(&task)
+	models.DB.Delete(&list)
+
+	c.JSON(http.StatusOK, gin.H{"data": true})
+}
+
 func FindSingleListItem(c *gin.Context) {
 	var list models.Task
 

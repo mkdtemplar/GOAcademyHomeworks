@@ -15,8 +15,6 @@ func FindTasks(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": task})
 }
 
-// POST /api
-// Create new task
 func CreateTask(c *gin.Context) {
 	// Validate input
 	var input models.CreateTask
@@ -25,10 +23,10 @@ func CreateTask(c *gin.Context) {
 		return
 	}
 
-	// Create task
 	task := models.Task{
-		Text:      input.Text,
-		Completed: input.Completed,
+		Text: input.Text,
+		//ListId:    input.ListId,
+		//Completed: input.Completed,
 	}
 	models.DB.Create(&task)
 
@@ -65,7 +63,7 @@ func UpdateTask(c *gin.Context) {
 }
 
 func DeleteTask(c *gin.Context) {
-	// Get model if exist
+
 	var task models.Task
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
