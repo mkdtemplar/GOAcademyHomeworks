@@ -14,7 +14,7 @@ func ConnectDatabase() {
 		panic("Failed to connect to database!")
 	}
 
-	database.AutoMigrate(&Tasks{}, &Lists{})
+	//database.AutoMigrate(&Tasks{}, &Lists{})
 
 	DB = database
 }
