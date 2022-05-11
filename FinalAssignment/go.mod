@@ -7,7 +7,6 @@ require (
 	github.com/gin-gonic/gin v1.7.7
 	github.com/jinzhu/gorm v1.9.16
 	github.com/labstack/echo/v4 v4.7.2
-	github.com/rahmanfadhil/gin-bookstore v0.0.0-20211030042304-6776a8c68f28
 )
 
 require (
