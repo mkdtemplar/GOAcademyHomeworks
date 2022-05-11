@@ -1,4 +1,4 @@
-package Controlers
+package Controllers
 
 import (
 	models "FinalAssignment/Models"

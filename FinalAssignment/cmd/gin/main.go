@@ -1,7 +1,7 @@
 package main
 
 import (
-	controllers "FinalAssignment/Controlers"
+	controllers "FinalAssignment/Controllers"
 	models "FinalAssignment/Models"
 	"FinalAssignment/cmd"
 	"github.com/gin-gonic/gin"
