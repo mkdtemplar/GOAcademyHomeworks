@@ -1,6 +1,6 @@
 package Models
 
-type Task struct {
+type Tasks struct {
 	Id        uint   `json:"id" gorm:"primary_key"`
 	Text      string `json:"text"`
 	ListId    int    `json:"list_Id"`

@@ -1,4 +1,4 @@
-module final
+module FinalAssignment
 
 go 1.18
 

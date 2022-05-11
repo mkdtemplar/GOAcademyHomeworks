@@ -1,20 +1,20 @@
 package Controlers
 
 import (
-	models "final/Models"
+	models "FinalAssignment/Models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func FindTasks(c *gin.Context) {
-	var task []models.Task
+	var task []models.Tasks
 	models.DB.Find(&task)
 
 	c.JSON(http.StatusOK, gin.H{"data": task})
 }
 
 func CreateTask(c *gin.Context) {
-	var list models.List
+	var list models.Lists
 	var input models.CreateTask
 
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
@@ -27,7 +27,7 @@ func CreateTask(c *gin.Context) {
 		return
 	}
 
-	task := models.Task{
+	task := models.Tasks{
 		Text:      input.Text,
 		ListId:    input.ListId,
 		Completed: input.Completed,
@@ -38,7 +38,7 @@ func CreateTask(c *gin.Context) {
 }
 
 func FindSingleTask(c *gin.Context) {
-	var task models.Task
+	var task models.Tasks
 
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
@@ -49,7 +49,7 @@ func FindSingleTask(c *gin.Context) {
 }
 
 func UpdateTask(c *gin.Context) {
-	var task models.Task
+	var task models.Tasks
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
@@ -68,7 +68,7 @@ func UpdateTask(c *gin.Context) {
 
 func DeleteTask(c *gin.Context) {
 
-	var task models.Task
+	var task models.Tasks
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return

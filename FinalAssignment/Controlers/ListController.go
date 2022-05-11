@@ -1,13 +1,13 @@
 package Controlers
 
 import (
-	models "final/Models"
+	models "FinalAssignment/Models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func FindLists(c *gin.Context) {
-	var list []models.List
+	var list []models.Lists
 	models.DB.Find(&list)
 
 	c.JSON(http.StatusOK, gin.H{"data": list})
@@ -22,7 +22,7 @@ func CreateList(c *gin.Context) {
 	}
 
 	// Create list
-	list := models.List{
+	list := models.Lists{
 		Name: input.Name,
 	}
 	models.DB.Create(&list)
@@ -32,8 +32,8 @@ func CreateList(c *gin.Context) {
 
 func DeleteList(c *gin.Context) {
 
-	var list models.List
-	var task models.Task
+	var list models.Lists
+	var task models.Tasks
 
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
@@ -51,7 +51,7 @@ func DeleteList(c *gin.Context) {
 }
 
 func FindSingleListItem(c *gin.Context) {
-	var list models.Task
+	var list models.Tasks
 
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})

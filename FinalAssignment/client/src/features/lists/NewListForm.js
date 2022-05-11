@@ -64,7 +64,7 @@ const NewListForm = () => {
                 'form-control',
                 !!touched.text && (isValid ? 'is-valid' : 'is-invalid')
               )}
-              placeholder="List name..."
+              placeholder="Lists name..."
               readOnly={isSubmitting}
               id="new-list"
             />
