@@ -158,6 +158,50 @@
         }
       }
     },
+    "/alltasks": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Get all tasks",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/DeleteAllTasks": {
+      "delete": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Delete all tasks",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        }
+      }
+    },
     "/tasks/{id}": {
       "patch": {
         "tags": [

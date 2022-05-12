@@ -12,6 +12,9 @@ import (
 func main() {
 
 	models.ConnectDatabase()
+
+	gin.SetMode(gin.ReleaseMode)
+
 	router := gin.Default()
 
 	router.Use(func(ctx *gin.Context) {
@@ -21,7 +24,7 @@ func main() {
 	})
 
 	// Tasks endpoints
-	router.GET("/api/tasks", controllers.FindTasks)
+	router.GET("/api/alltasks", controllers.FindTasks)
 
 	router.GET("/api/lists/:id/tasks", controllers.FindSingleTask)
 
@@ -30,6 +33,8 @@ func main() {
 	router.PATCH("/api/tasks/:id", controllers.UpdateTask)
 
 	router.DELETE("/api/tasks/:id", controllers.DeleteTask)
+
+	router.DELETE("/api/DeleteAllTasks", controllers.DeleteAllTasks)
 
 	// Lists endpoints
 	router.GET("/api/lists", controllers.FindLists)

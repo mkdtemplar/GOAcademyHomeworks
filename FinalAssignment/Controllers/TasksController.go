@@ -78,3 +78,9 @@ func DeleteTask(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
 }
+
+func DeleteAllTasks(c *gin.Context) {
+	models.DB.Exec(`DELETE FROM tasks`)
+
+	c.JSON(http.StatusOK, gin.H{"data": true})
+}
