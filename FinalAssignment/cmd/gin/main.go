@@ -43,6 +43,9 @@ func main() {
 
 	router.DELETE("/api/lists/:id", controllers.DeleteList)
 
+	// Weather endpoint
+	router.GET("/api/weather/:lat/:lon", controllers.GetWeather)
+
 	// Do not touch this line!
 	log.Fatal(http.ListenAndServe(":3000", cmd.CreateCommonMux(router)))
 }

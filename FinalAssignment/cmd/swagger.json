@@ -10,7 +10,68 @@
   },
   "host": "localhost:3000",
   "basePath": "/api",
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
   "paths": {
+    "/weather/{lat}/{lon}": {
+      "get": {
+        "tags": [
+          "Weather"
+        ],
+        "summary": "weather",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "path",
+            "description": "latitude",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "lon",
+            "in": "path",
+            "description": "longitude",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/WeatherInfo"
+            }
+          }
+        }
+      }
+    },
+    "/list/export": {
+      "get": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Get csv file",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/lists/{id}/tasks": {
       "get": {
         "tags": [
@@ -294,6 +355,26 @@
           "format": "int64"
         },
         "name": {
+          "type": "string"
+        }
+      }
+    },
+    "WeatherInfo": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        },
+        "Temperature": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "City": {
           "type": "string"
         }
       }

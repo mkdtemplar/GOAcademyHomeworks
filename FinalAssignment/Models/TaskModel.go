@@ -14,5 +14,7 @@ type CreateTask struct {
 }
 
 type UpdateTaskInput struct {
-	Text string `json:"text"`
+	//Text string `json:"text"`
+	//ListId    int    `json:"list_id"`
+	Completed bool `json:"completed"`
 }
