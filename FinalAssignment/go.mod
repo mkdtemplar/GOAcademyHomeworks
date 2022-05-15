@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/flowchartsman/swaggerui v0.0.0-20210303154956-0e71c297862e
 	github.com/gin-gonic/gin v1.7.7
-	github.com/joho/sqltocsv v0.0.0-20210428211105-a6d6801d59df
 	github.com/labstack/echo/v4 v4.7.2
 	gorm.io/driver/sqlite v1.3.2
 	gorm.io/gorm v1.23.5
