@@ -10,7 +10,7 @@ func FindTasks(c *gin.Context) {
 	var task []models.Tasks
 	models.DB.Find(&task)
 
-	c.JSON(http.StatusOK, gin.H{"data": task})
+	c.JSON(http.StatusOK, task)
 }
 
 func CreateTask(c *gin.Context) {
@@ -34,7 +34,7 @@ func CreateTask(c *gin.Context) {
 	}
 	models.DB.Create(&task)
 
-	c.JSON(http.StatusOK, gin.H{"data": task})
+	c.JSON(http.StatusOK, task)
 }
 
 func FindSingleTask(c *gin.Context) {
@@ -45,7 +45,7 @@ func FindSingleTask(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": task})
+	c.JSON(http.StatusOK, task)
 }
 
 func UpdateTask(c *gin.Context) {
@@ -63,7 +63,7 @@ func UpdateTask(c *gin.Context) {
 
 	models.DB.Model(&task).Updates(input)
 
-	c.JSON(http.StatusOK, gin.H{"data": task})
+	c.JSON(http.StatusOK, task)
 }
 
 func DeleteTask(c *gin.Context) {
@@ -76,7 +76,7 @@ func DeleteTask(c *gin.Context) {
 
 	models.DB.Delete(&task)
 
-	c.JSON(http.StatusOK, gin.H{"data": true})
+	c.JSON(http.StatusOK, task)
 }
 
 func DeleteAllTasks(c *gin.Context) {

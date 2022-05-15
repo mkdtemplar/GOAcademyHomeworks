@@ -10,7 +10,7 @@ func FindLists(c *gin.Context) {
 	var list []models.Lists
 	models.DB.Find(&list)
 
-	c.JSON(http.StatusOK, gin.H{"data": list})
+	c.JSON(http.StatusOK, list)
 }
 
 func CreateList(c *gin.Context) {
@@ -27,7 +27,7 @@ func CreateList(c *gin.Context) {
 	}
 	models.DB.Create(&list)
 
-	c.JSON(http.StatusOK, gin.H{"data": list})
+	c.JSON(http.StatusOK, list)
 }
 
 func DeleteList(c *gin.Context) {
@@ -58,5 +58,5 @@ func FindSingleListItem(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": list})
+	c.JSON(http.StatusOK, list)
 }

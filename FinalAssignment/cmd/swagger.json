@@ -36,14 +36,16 @@
             "in": "path",
             "description": "latitude",
             "required": true,
-            "type": "number"
+            "type": "number",
+            "format": "double"
           },
           {
             "name": "lon",
             "in": "path",
             "description": "longitude",
             "required": true,
-            "type": "number"
+            "type": "number",
+            "format": "double"
           }
         ],
         "responses": {
@@ -362,12 +364,6 @@
     "WeatherInfo": {
       "type": "object",
       "properties": {
-        "lat": {
-          "type": "number"
-        },
-        "lon": {
-          "type": "number"
-        },
         "Temperature": {
           "type": "string"
         },

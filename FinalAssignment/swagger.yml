@@ -14,7 +14,7 @@
   security:
     - basicAuth: []
   paths:
-    /weather:
+    /weather/{lat}/{lon}:
       get:
         tags:
           - Weather
@@ -23,13 +23,13 @@
           - application/json
         parameters:
           - name: lat
-            in: header
+            in: path
             description: 'latitude'
             required: true
             type: number
             format: double
           - name: lon
-            in: header
+            in: path
             description: 'longitude'
             required: true
             type: number

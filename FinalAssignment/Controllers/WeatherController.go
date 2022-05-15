@@ -38,6 +38,6 @@ func GetWeather(c *gin.Context) {
 		City:        response.Name,
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": response1})
+	c.JSON(http.StatusOK, response1)
 
 }

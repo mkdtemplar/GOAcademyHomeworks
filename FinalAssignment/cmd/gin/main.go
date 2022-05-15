@@ -1,6 +1,7 @@
 package main
 
 import (
+	CSV "FinalAssignment/CSV"
 	controllers "FinalAssignment/Controllers"
 	models "FinalAssignment/Models"
 	"FinalAssignment/cmd"
@@ -42,6 +43,8 @@ func main() {
 	router.POST("/api/lists", controllers.CreateList)
 
 	router.DELETE("/api/lists/:id", controllers.DeleteList)
+
+	router.GET("/api/list/export", CSV.ReadListRow)
 
 	// Weather endpoint
 	router.GET("/api/weather/:lat/:lon", controllers.GetWeather)
