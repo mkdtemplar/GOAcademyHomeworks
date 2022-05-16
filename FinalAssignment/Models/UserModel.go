@@ -1,8 +1,10 @@
 package Models
 
+import "gorm.io/gorm"
+
 type User struct {
-	Id       uint   `json:"id" gorm:"primary_key"`
-	Name     string `json:"name" `
+	gorm.Model
+	Username string `json:"username" gorm:"unique"`
 	Password string `json:"password"`
 }
 
