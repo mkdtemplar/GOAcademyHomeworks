@@ -9,7 +9,7 @@
     }
   },
   "host": "localhost:3000",
-  "basePath": "/api",
+  "basePath": "/api/",
   "securityDefinitions": {
     "basicAuth": {
       "type": "basic"
@@ -65,7 +65,7 @@
         ],
         "summary": "Get csv file",
         "produces": [
-          "application/json"
+          "text/csv"
         ],
         "responses": {
           "200": {

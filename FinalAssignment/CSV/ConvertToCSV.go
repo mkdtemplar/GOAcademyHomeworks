@@ -5,7 +5,6 @@ import (
 	"encoding/csv"
 	"github.com/gin-gonic/gin"
 	"log"
-	"net/http"
 	"os"
 	"strconv"
 )
@@ -25,7 +24,13 @@ func ReadListRow(c *gin.Context) {
 		row = append(row, list[i].Name)
 		_ = csvWriter.Write(row)
 	}
+	if err != nil {
+		log.Fatal(err)
+	}
+	fileName := "list.csv"
+	path := "CSV/CSVFileOutput/list.csv"
+
 	csvWriter.Flush()
 	csvFile.Close()
-	c.JSON(http.StatusOK, list)
+	c.FileAttachment(path, fileName)
 }
