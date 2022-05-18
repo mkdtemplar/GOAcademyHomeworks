@@ -61,7 +61,9 @@ func UpdateTask(c *gin.Context) {
 		return
 	}
 
-	models.DB.Model(&task).Updates(input)
+	models.DB.Model(&task).Updates(models.Tasks{
+		Completed: input.Completed,
+	})
 
 	c.JSON(http.StatusOK, task)
 }
