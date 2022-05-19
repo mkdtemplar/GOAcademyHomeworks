@@ -1,7 +1,6 @@
 package TaskRepository
 
 import (
-	"FinalAssignment/Repository/DatabaseContext"
 	models "FinalAssignment/Repository/Models"
 	"gorm.io/gorm"
 )
@@ -11,20 +10,6 @@ func GetAllTasks(db *gorm.DB) ([]models.Tasks, error) {
 	if err := db.Find(&task).Error; err != nil {
 		return task, err
 	}
-
-	return task, nil
-}
-
-func CreateNewTask(id int, db *gorm.DB) (models.CreateTask, error) {
-	var list models.Lists
-
-	var task models.CreateTask
-
-	if err := DatabaseContext.DB.Where("id = ?", id).First(&list).Error; err != nil {
-		return task, err
-	}
-
-	DatabaseContext.DB.Create(&task)
 
 	return task, nil
 }

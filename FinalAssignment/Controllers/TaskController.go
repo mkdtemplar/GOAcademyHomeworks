@@ -9,11 +9,11 @@ import (
 	"strconv"
 )
 
-type APIEnv struct {
+type APIEnvTask struct {
 	DB *gorm.DB
 }
 
-func (a APIEnv) GetTasks(c *gin.Context) {
+func (a APIEnvTask) GetTasks(c *gin.Context) {
 	tasks, err := taskRepo.GetAllTasks(a.DB)
 
 	if err != nil {
@@ -24,7 +24,7 @@ func (a APIEnv) GetTasks(c *gin.Context) {
 	c.JSON(http.StatusOK, tasks)
 }
 
-func (a APIEnv) FindOneTask(c *gin.Context) {
+func (a APIEnvTask) FindOneTask(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	task, exists, err := taskRepo.FindTaskById(id, a.DB)
@@ -41,7 +41,7 @@ func (a APIEnv) FindOneTask(c *gin.Context) {
 	c.JSON(http.StatusOK, task)
 }
 
-func (a APIEnv) CreateTask(c *gin.Context) {
+func (a APIEnvTask) CreateTask(c *gin.Context) {
 	task := models.Tasks{}
 
 	err := c.BindJSON(&task)
@@ -59,7 +59,7 @@ func (a APIEnv) CreateTask(c *gin.Context) {
 	c.JSON(http.StatusOK, task)
 }
 
-func (a APIEnv) DeleteTask(c *gin.Context) {
+func (a APIEnvTask) DeleteTask(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	_, exists, err := taskRepo.FindTaskById(id, a.DB)
@@ -82,7 +82,7 @@ func (a APIEnv) DeleteTask(c *gin.Context) {
 	c.JSON(http.StatusOK, "Record deleted successfully")
 }
 
-func (a APIEnv) UpdatesTask(c *gin.Context) {
+func (a APIEnvTask) UpdatesTask(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	_, exists, err := taskRepo.FindTaskById(id, a.DB)
@@ -112,7 +112,7 @@ func (a APIEnv) UpdatesTask(c *gin.Context) {
 	a.FindOneTask(c)
 }
 
-func (a APIEnv) DeleteAll(c *gin.Context) {
+func (a APIEnvTask) DeleteAll(c *gin.Context) {
 	taskRepo.DeleteAllTasks(a.DB)
 	c.JSON(http.StatusOK, "Deleted all tasks")
 }

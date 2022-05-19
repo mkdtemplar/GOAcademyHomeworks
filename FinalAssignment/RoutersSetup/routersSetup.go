@@ -2,6 +2,8 @@ package RoutersSetup
 
 import (
 	auth "FinalAssignment/Authorization"
+	"FinalAssignment/CSV"
+	controllers "FinalAssignment/Controllers"
 	handlers "FinalAssignment/Controllers"
 	repo "FinalAssignment/Repository/DatabaseContext"
 	"github.com/gin-gonic/gin"
@@ -13,7 +15,8 @@ func Setup() *gin.Engine {
 
 	router := gin.Default()
 
-	api := &handlers.APIEnv{DB: repo.GetDB()}
+	apiTask := &handlers.APIEnvTask{DB: repo.GetDB()}
+	apiList := &handlers.APIEnvList{DB: repo.GetDB()}
 
 	router.Use(func(ctx *gin.Context) {
 		// This is a sample demonstration of how to attach middlewares in Gin
@@ -21,16 +24,29 @@ func Setup() *gin.Engine {
 		ctx.Next()
 	})
 
-	router.GET("/api/alltasks", auth.BasicAuth(), api.GetTasks)
+	// Tasks endpoints
+	router.GET("/api/alltasks", auth.BasicAuth(), apiTask.GetTasks)
 
-	router.GET("/api/lists/:id/tasks", auth.BasicAuth(), api.FindOneTask)
+	router.GET("/api/lists/:id/tasks", auth.BasicAuth(), apiTask.FindOneTask)
 
-	router.POST("/api/lists/:id/tasks", auth.BasicAuth(), api.CreateTask)
+	router.POST("/api/lists/:id/tasks", auth.BasicAuth(), apiTask.CreateTask)
 
-	router.PATCH("/api/tasks/:id", auth.BasicAuth(), api.UpdatesTask)
+	router.PATCH("/api/tasks/:id", auth.BasicAuth(), apiTask.UpdatesTask)
 
-	router.DELETE("/api/tasks/:id", auth.BasicAuth(), api.DeleteTask)
+	router.DELETE("/api/tasks/:id", auth.BasicAuth(), apiTask.DeleteTask)
 
-	router.DELETE("/api/DeleteAllTasks", auth.BasicAuth(), api.DeleteAll)
+	router.DELETE("/api/DeleteAllTasks", auth.BasicAuth(), apiTask.DeleteAll)
+
+	//List endpoints
+	router.GET("/api/list/export", auth.BasicAuth(), CSV.ReadListRow)
+	router.GET("/api/lists", auth.BasicAuth(), apiList.GetAllLists)
+
+	router.POST("/api/lists", auth.BasicAuth(), apiList.CreateList)
+
+	router.DELETE("/api/lists/:id", auth.BasicAuth(), apiList.DeleteList)
+
+	// Weather endpoint
+	router.GET("/api/weather/:lat/:lon", auth.BasicAuth(), controllers.GetWeather)
+
 	return router
 }
