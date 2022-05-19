@@ -1,59 +1,60 @@
 package Controllers
 
 import (
-	models "FinalAssignment/Models"
+	"FinalAssignment/Repository/DatabaseContext"
+	"FinalAssignment/Repository/Models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func FindLists(c *gin.Context) {
-	var list []models.Lists
-	models.DB.Find(&list)
+	var list []Models.Lists
+	DatabaseContext.DB.Find(&list)
 
 	c.JSON(http.StatusOK, list)
 }
 
 func CreateList(c *gin.Context) {
 	// Validate input
-	var input models.CreateLists
+	var input Models.CreateLists
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	// Create list
-	list := models.Lists{
+	list := Models.Lists{
 		Name: input.Name,
 	}
-	models.DB.Create(&list)
+	DatabaseContext.DB.Create(&list)
 
 	c.JSON(http.StatusOK, list)
 }
 
 func DeleteList(c *gin.Context) {
 
-	var list models.Lists
-	var task models.Tasks
+	var list Models.Lists
+	var task Models.Tasks
 
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
+	if err := DatabaseContext.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
 
-	if err := models.DB.Where("list_id = ?", c.Param("id")).First(&task).Error; err != nil {
+	if err := DatabaseContext.DB.Where("list_id = ?", c.Param("id")).First(&task).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
-	models.DB.Delete(&task)
-	models.DB.Delete(&list)
+	DatabaseContext.DB.Delete(&task)
+	DatabaseContext.DB.Delete(&list)
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
 }
 
 func FindSingleListItem(c *gin.Context) {
-	var list models.Tasks
+	var list Models.Tasks
 
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
+	if err := DatabaseContext.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}

@@ -1,23 +1,24 @@
 package Controllers
 
 import (
-	models "FinalAssignment/Models"
+	"FinalAssignment/Repository/DatabaseContext"
+	"FinalAssignment/Repository/Models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func FindTasks(c *gin.Context) {
-	var task []models.Tasks
-	models.DB.Find(&task)
+	var task []Models.Tasks
+	DatabaseContext.DB.Find(&task)
 
 	c.JSON(http.StatusOK, task)
 }
 
 func CreateTask(c *gin.Context) {
-	var list models.Lists
-	var input models.CreateTask
+	var list Models.Lists
+	var input Models.CreateTask
 
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
+	if err := DatabaseContext.DB.Where("id = ?", c.Param("id")).First(&list).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -27,20 +28,20 @@ func CreateTask(c *gin.Context) {
 		return
 	}
 
-	task := models.Tasks{
+	task := Models.Tasks{
 		Text:      input.Text,
 		ListId:    input.ListId,
 		Completed: input.Completed,
 	}
-	models.DB.Create(&task)
+	DatabaseContext.DB.Create(&task)
 
 	c.JSON(http.StatusOK, task)
 }
 
 func FindSingleTask(c *gin.Context) {
-	var task models.Tasks
+	var task Models.Tasks
 
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
+	if err := DatabaseContext.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -49,40 +50,41 @@ func FindSingleTask(c *gin.Context) {
 }
 
 func UpdateTask(c *gin.Context) {
-	var task models.Tasks
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
+	var task Models.Tasks
+	if err := DatabaseContext.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
 
-	var input models.UpdateTaskInput
+	var input Models.UpdateTaskInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	models.DB.Model(&task).Updates(models.Tasks{
+	DatabaseContext.DB.Model(&task).Updates(Models.Tasks{
 		Completed: input.Completed,
 	})
 
+	DatabaseContext.DB.Save(&task)
 	c.JSON(http.StatusOK, task)
 }
 
 func DeleteTask(c *gin.Context) {
 
-	var task models.Tasks
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
+	var task Models.Tasks
+	if err := DatabaseContext.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
 
-	models.DB.Delete(&task)
+	DatabaseContext.DB.Delete(&task)
 
 	c.JSON(http.StatusOK, task)
 }
 
 func DeleteAllTasks(c *gin.Context) {
-	models.DB.Exec(`DELETE FROM tasks`)
+	DatabaseContext.DB.Exec(`DELETE FROM tasks`)
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
 }

@@ -1,7 +1,7 @@
 package Controllers
 
 import (
-	model "FinalAssignment/Models"
+	model "FinalAssignment/Repository/Models"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"

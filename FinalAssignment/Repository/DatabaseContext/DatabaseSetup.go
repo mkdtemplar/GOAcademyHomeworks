@@ -1,6 +1,7 @@
-package Models
+package DatabaseContext
 
 import (
+	"FinalAssignment/Repository/Models"
 	_ "github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -9,12 +10,12 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	database, err := gorm.Open(sqlite.Open("Models/Database/test.db"), &gorm.Config{})
+	database, err := gorm.Open(sqlite.Open("Repository/DatabaseContext/Database/test.db"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
 
-	database.AutoMigrate(&Tasks{}, &Lists{}, &User{})
+	database.AutoMigrate(&Models.Tasks{}, &Models.Lists{}, &Models.User{})
 
 	DB = database
 }

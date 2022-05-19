@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="test" uuid="ac05663a-8382-4a3e-8370-bc7a47607bf1">
+    <data-source source="LOCAL" name="test" uuid="0b96ca39-4fdb-4a19-9b0a-f4c15a6a7345">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\GO\GOAcademyHomeworks\FinalAssignment\Models\Database\test.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:D:\GO\GOAcademyHomeworks\FinalAssignment\Repository\DatabaseContext\Database\test.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

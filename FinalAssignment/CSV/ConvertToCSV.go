@@ -1,7 +1,8 @@
 package CSV
 
 import (
-	models "FinalAssignment/Models"
+	"FinalAssignment/Repository/DatabaseContext"
+	"FinalAssignment/Repository/Models"
 	"encoding/csv"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -15,10 +16,10 @@ func ReadListRow(c *gin.Context) {
 		log.Fatalf("failed creating file: %s", err)
 	}
 	csvWriter := csv.NewWriter(csvFile)
-	var list []models.Lists
-	var task []models.Tasks
-	models.DB.Find(&list)
-	models.DB.Find(&task)
+	var list []Models.Lists
+	var task []Models.Tasks
+	DatabaseContext.DB.Find(&list)
+	DatabaseContext.DB.Find(&task)
 	_ = csvWriter.Write([]string{"Id", "Name"})
 	for i := 0; i < len(list); i++ {
 		var row []string

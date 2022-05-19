@@ -1,7 +1,8 @@
 package Authorization
 
 import (
-	models "FinalAssignment/Models"
+	"FinalAssignment/Repository/DatabaseContext"
+	"FinalAssignment/Repository/Models"
 	"encoding/base64"
 	"github.com/gin-gonic/gin"
 	"strings"
@@ -29,9 +30,9 @@ func BasicAuth() gin.HandlerFunc {
 }
 
 func checkUser(username string, password string) bool {
-	var user models.User
+	var user Models.User
 
-	err := models.DB.Where(models.User{
+	err := DatabaseContext.DB.Where(Models.User{
 		Username: username,
 		Password: password,
 	}).First(&user)
