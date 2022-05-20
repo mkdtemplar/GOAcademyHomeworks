@@ -39,6 +39,7 @@ func Setup() *gin.Engine {
 
 	//List endpoints
 	router.GET("/api/list/export", auth.BasicAuth(), CSV.ReadListRow)
+
 	router.GET("/api/lists", auth.BasicAuth(), apiList.GetAllLists)
 
 	router.POST("/api/lists", auth.BasicAuth(), apiList.CreateList)

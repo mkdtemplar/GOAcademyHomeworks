@@ -4,6 +4,7 @@ import (
 	apiTask "FinalAssignment/Controllers"
 	repo "FinalAssignment/Repository/DatabaseContext"
 	models "FinalAssignment/Repository/Models"
+	taskRepo "FinalAssignment/Repository/TaskRepository"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -14,36 +15,13 @@ import (
 	"testing"
 )
 
-func TestGETTasks(t *testing.T) {
-
-	gin.SetMode(gin.TestMode)
-
-	r := gin.Default()
-	r.GET("/api/alltasks")
-
-	req, err := http.NewRequest(http.MethodGet, "/api/alltasks", nil)
-	if err != nil {
-		t.Fatalf("Couldn't create request: %v\n", err)
-	}
-
-	// Create a response recorder so you can inspect the response
-	w := httptest.NewRecorder()
-	r.ServeHTTP(w, req)
-	// Check to see if the response was what you expected
-	if w.Code == http.StatusOK {
-		t.Logf("Expected to get status %d is same ast %d\n", http.StatusOK, w.Code)
-	} else {
-		t.Fatalf("Expected to get status %d but instead got %d\n", http.StatusOK, w.Code)
-	}
-
-}
-
 func Test_GetTask_OK(t *testing.T) {
+	gin.SetMode(gin.ReleaseMode)
 	a := assert.New(t)
 	repo.ConnectDatabase()
 	db := repo.GetDB()
 
-	task, err := insertTestTask(db)
+	task, err := insertTestTask()
 	if err != nil {
 		a.Error(err)
 	}
@@ -57,7 +35,7 @@ func Test_GetTask_OK(t *testing.T) {
 		a.Error(err)
 	}
 
-	actual := models.Tasks{}
+	actual, _, _ := taskRepo.FindTaskById(1, db)
 	if err := json.Unmarshal(body, &actual); err != nil {
 		a.Error(err)
 	}
@@ -65,7 +43,6 @@ func Test_GetTask_OK(t *testing.T) {
 	expected := task
 
 	a.Equal(expected, actual)
-	ClearTable()
 }
 
 func setGetTasksRouter(db *gorm.DB, url string) (*http.Request, *httptest.ResponseRecorder) {
@@ -85,20 +62,12 @@ func setGetTasksRouter(db *gorm.DB, url string) (*http.Request, *httptest.Respon
 	return req, w
 }
 
-func ClearTable() {
-	repo.DB.Exec(`DELETE FROM tasks`)
-	repo.DB.Exec(`ALTER SEQUENCE id RESTART WITH 1`)
-}
-
-func insertTestTask(db *gorm.DB) (models.Tasks, error) {
+func insertTestTask() (models.Tasks, error) {
 	t := models.Tasks{
-		Text:      "Test task",
+		Id:        1,
+		Text:      "Task 1",
 		ListId:    1,
-		Completed: false,
-	}
-
-	if err := db.Create(&t).Error; err != nil {
-		return t, err
+		Completed: true,
 	}
 	return t, nil
 }
