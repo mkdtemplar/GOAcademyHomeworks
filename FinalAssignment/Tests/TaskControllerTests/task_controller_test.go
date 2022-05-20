@@ -53,9 +53,9 @@ func TestCreateTask(t *testing.T) {
 	db := repo.GetDB()
 
 	task := models.Tasks{
-		Id:        8,
-		Text:      "Task 6",
-		ListId:    5,
+		Id:        9,
+		Text:      "Task 9",
+		ListId:    7,
 		Completed: false,
 	}
 

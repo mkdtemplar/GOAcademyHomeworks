@@ -38,6 +38,4 @@ func main() {
 	}
 	<-exit
 
-	// Do not touch this line!
-
 }
