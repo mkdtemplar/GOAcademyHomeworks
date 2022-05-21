@@ -21,7 +21,60 @@
     }
   ],
   "paths": {
-    "/weather/{lat}/{lon}": {
+    "/CreateUser": {
+      "post": {
+        "summary": "Create User.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Username": {
+                  "type": "string"
+                },
+                "Password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Get lists",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/List"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/weather": {
       "get": {
         "tags": [
           "Weather"
@@ -33,7 +86,7 @@
         "parameters": [
           {
             "name": "lat",
-            "in": "path",
+            "in": "header",
             "description": "latitude",
             "required": true,
             "type": "number",
@@ -41,7 +94,7 @@
           },
           {
             "name": "lon",
-            "in": "path",
+            "in": "header",
             "description": "longitude",
             "required": true,
             "type": "number",
@@ -357,6 +410,17 @@
           "format": "int64"
         },
         "name": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "Username": {
+          "type": "string"
+        },
+        "Password": {
           "type": "string"
         }
       }
