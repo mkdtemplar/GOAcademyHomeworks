@@ -48,7 +48,7 @@ func Setup() *gin.Engine {
 	router.DELETE("/api/lists/:id", auth.BasicAuth(), apiList.DeleteList)
 
 	// Weather endpoint
-	router.GET("/api/weather", auth.BasicAuth(), controllers.GetWeather)
+	router.GET("/api/weather/:lat/:lon", auth.BasicAuth(), controllers.GetWeather)
 
 	router.POST("/api/CreateUser", auth.BasicAuth(), apiUser.CreateUser)
 

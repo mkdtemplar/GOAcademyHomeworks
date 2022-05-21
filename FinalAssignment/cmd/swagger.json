@@ -74,7 +74,7 @@
         }
       }
     },
-    "/weather": {
+    "/weather/{lat}/{lon}": {
       "get": {
         "tags": [
           "Weather"
@@ -86,7 +86,7 @@
         "parameters": [
           {
             "name": "lat",
-            "in": "header",
+            "in": "path",
             "description": "latitude",
             "required": true,
             "type": "number",
@@ -94,7 +94,7 @@
           },
           {
             "name": "lon",
-            "in": "header",
+            "in": "path",
             "description": "longitude",
             "required": true,
             "type": "number",

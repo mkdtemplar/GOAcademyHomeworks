@@ -3,6 +3,7 @@ package Controllers
 import (
 	listRepo "FinalAssignment/Repository/ListRepository"
 	models "FinalAssignment/Repository/Models"
+	taskRepo "FinalAssignment/Repository/TaskRepository"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"net/http"
@@ -52,13 +53,31 @@ func (l APIEnvList) DeleteList(c *gin.Context) {
 	}
 
 	if !exists {
+		c.JSON(http.StatusNotFound, "There is no list in the db")
+		return
+	}
+
+	_, existsTask, errTask := taskRepo.FindTaskById(id, l.DB)
+
+	if errTask != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if !existsTask {
 		c.JSON(http.StatusNotFound, "There is no task in the db")
 		return
 	}
 
 	err = listRepo.DeleteList(id, l.DB)
+	errTask = taskRepo.DeleteTask(id, l.DB)
 
 	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if errTask != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
