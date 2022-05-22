@@ -32,7 +32,7 @@ func BasicAuth() gin.HandlerFunc {
 
 		for i := 0; i < len(user); i++ {
 			err := bcrypt.CompareHashAndPassword([]byte(user[i].Password), []byte(pair[1]))
-			if err == nil {
+			if err == nil && user[i].Username == pair[0] {
 				break
 			}
 			counter++
@@ -44,21 +44,6 @@ func BasicAuth() gin.HandlerFunc {
 		}
 		c.Next()
 	}
-}
-
-func checkUser(username string, password string) bool {
-	var user Models.User
-
-	err := DatabaseContext.DB.Where(Models.User{
-		Username: username,
-		Password: password,
-	}).First(&user)
-
-	if err.Error != nil {
-		return false
-	}
-
-	return true
 }
 
 func respondWithError(code int, message string, c *gin.Context) {
