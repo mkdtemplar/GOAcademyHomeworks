@@ -12,6 +12,8 @@ import (
 func BasicAuth() gin.HandlerFunc {
 
 	return func(c *gin.Context) {
+		var user []Models.User
+		var counter = 0
 		auth := strings.SplitN(c.Request.Header.Get("Authorization"), " ", 2)
 
 		if len(auth) != 2 || auth[0] != "Basic" {
@@ -21,11 +23,25 @@ func BasicAuth() gin.HandlerFunc {
 		payload, _ := base64.StdEncoding.DecodeString(auth[1])
 		pair := strings.SplitN(string(payload), ":", 2)
 
-		if len(pair) != 2 || !checkUser(pair[0], pair[1]) {
+		DatabaseContext.DB.Find(&user)
+
+		if len(pair) != 2 {
 			respondWithError(401, "Unauthorized", c)
 			return
 		}
 
+		for i := 0; i < len(user); i++ {
+			err := bcrypt.CompareHashAndPassword([]byte(user[i].Password), []byte(pair[1]))
+			if err == nil {
+				break
+			}
+			counter++
+		}
+
+		if counter == len(user) {
+			respondWithError(401, "Unauthorized", c)
+			return
+		}
 		c.Next()
 	}
 }
@@ -33,14 +49,12 @@ func BasicAuth() gin.HandlerFunc {
 func checkUser(username string, password string) bool {
 	var user Models.User
 
-	DatabaseContext.DB.Where(Models.User{
+	err := DatabaseContext.DB.Where(Models.User{
 		Username: username,
 		Password: password,
 	}).First(&user)
 
-	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
-
-	if err != nil {
+	if err.Error != nil {
 		return false
 	}
 
