@@ -33,7 +33,7 @@ func GetWeather(c *gin.Context) {
 	var response1 = model.Response{}
 
 	response1 = model.Response{
-		Description: response.Weather[0].Description,
+		Description: response.Weather[len(response.Weather)].Description,
 		Temperature: fmt.Sprintf("%.2f%s", response.Main.Temp-273.15, " Celsius"),
 		City:        response.Name,
 	}

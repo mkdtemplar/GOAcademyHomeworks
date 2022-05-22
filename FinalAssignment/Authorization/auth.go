@@ -5,6 +5,7 @@ import (
 	"FinalAssignment/Repository/Models"
 	"encoding/base64"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 	"strings"
 )
 
@@ -32,12 +33,14 @@ func BasicAuth() gin.HandlerFunc {
 func checkUser(username string, password string) bool {
 	var user Models.User
 
-	err := DatabaseContext.DB.Where(Models.User{
+	DatabaseContext.DB.Where(Models.User{
 		Username: username,
 		Password: password,
 	}).First(&user)
 
-	if err.Error != nil {
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+
+	if err != nil {
 		return false
 	}
 

@@ -52,26 +52,6 @@
             }
           }
         }
-      },
-      "get": {
-        "tags": [
-          "List"
-        ],
-        "summary": "Get lists",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/List"
-              }
-            }
-          }
-        }
       }
     },
     "/weather/{lat}/{lon}": {
@@ -114,7 +94,7 @@
     "/list/export": {
       "get": {
         "tags": [
-          "Export"
+          "List"
         ],
         "summary": "Get csv file",
         "produces": [
