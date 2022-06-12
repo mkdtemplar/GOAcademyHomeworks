@@ -23,7 +23,7 @@ func (l APIEnvList) CreateList(c *gin.Context) {
 		return
 	}
 
-	if err := l.DB.Create(&list).Error; err != nil {
+	if err = l.DB.Create(&list).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}

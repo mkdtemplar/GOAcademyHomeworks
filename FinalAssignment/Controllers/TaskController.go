@@ -104,7 +104,7 @@ func (a APIEnvTask) UpdatesTask(c *gin.Context) {
 		return
 	}
 
-	if err := taskRepo.UpdateTask(id, a.DB, &updatedTask); err != nil {
+	if err = taskRepo.UpdateTask(id, a.DB, &updatedTask); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
