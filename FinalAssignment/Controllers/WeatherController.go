@@ -13,9 +13,6 @@ import (
 
 func GetWeather(c *gin.Context) {
 
-	//lat, _ := strconv.ParseFloat(c.Param("lat"), 64)
-	//lon, _ := strconv.ParseFloat(c.Param("lon"), 64)
-
 	lat, err := strconv.ParseFloat(c.Request.URL.Query().Get("lat"), 64)
 	lon, err := strconv.ParseFloat(c.Request.URL.Query().Get("lon"), 64)
 
