@@ -1,6 +1,7 @@
 package Controllers
 
 import (
+	models "FinalAssignment/Repository/Models"
 	taskRepo "FinalAssignment/Repository/TaskRepository"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -54,5 +55,24 @@ func (e APIEnvTaskEcho) GetOneTask(ech echo.Context) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func (e APIEnvTaskEcho) CreateTask(ech echo.Context) error {
+	task := models.Tasks{}
+
+	err := ech.Bind(&task)
+
+	if err != nil {
+		ech.JSON(http.StatusInternalServerError, err.Error())
+		return err
+	}
+
+	if err = e.DB.Create(&task).Error; err != nil {
+		ech.JSON(http.StatusInternalServerError, err.Error())
+		return err
+	}
+
+	ech.JSON(http.StatusOK, task)
 	return nil
 }

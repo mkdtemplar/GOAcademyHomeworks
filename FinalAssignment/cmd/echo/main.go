@@ -38,6 +38,8 @@ func main() {
 
 	router.GET("/api/lists/:id/tasks", apiTask.GetOneTask)
 
+	router.POST("/api/lists/:id/tasks", apiTask.CreateTask)
+
 	// Do not touch this line!
 	log.Fatal(http.ListenAndServe(":3000", cmd.CreateCommonMux(router)))
 }
