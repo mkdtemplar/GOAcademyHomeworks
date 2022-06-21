@@ -13,9 +13,6 @@ import (
 
 func GetWeather(c *gin.Context) {
 
-	//lat, _ := strconv.ParseFloat(c.Request.URL.Query().Get("lat"), 64)
-	//lon, _ := strconv.ParseFloat(c.Request.URL.Query().Get("lon"), 64)
-
 	lat, _ := strconv.ParseFloat(c.GetHeader("lat"), 64)
 	lon, _ := strconv.ParseFloat(c.GetHeader("lon"), 64)
 	url := fmt.Sprintf("%s%f%s%f%s%s", "https://api.openweathermap.org/data/2.5/weather?lat=", lat, "&lon=",
